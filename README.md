@@ -22,6 +22,7 @@ import로 복사한 프로젝트 등록할때 already Exist뜨면
 복사한프로젝트폴더/.project로가서 <name>기존프로젝트이름</name>을 <name>작업할 프로젝트이름</name>으로 수정
 
 # 21/06/04
+### 넥사크로
 ![nexacro0604](./img/nexacro_0604.PNG)
 + 넥사크로 도입
   * pojo, spring 같이 o boot는 x
@@ -48,3 +49,127 @@ import로 복사한 프로젝트 등록할때 already Exist뜨면
   * 9000포트는 거르자 (다 똑같게 세팅해둬도 안되는 사람들이 많았음)
 
 # 21/06/03
+### Spring
+![spring](./img/spring_flow_chart.PNG)
+1. 요청이 올 때 (예시는 http://localhost:9001/board/getBoardList.sp4)
+2. 프론트 컨트롤러인 Dispatcher 서블릿이 처리 후 적절한 세부 컨트롤러한테 작업을 뿌려준다  
+WebContent/WEB-INF/web.xml
+```
+	<servlet>
+		<servlet-name>appServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+  ```
+3. xxx.sp4니 spring-servlet.xml로 보내서  
+WebContent/WEB-INF/web.xml
+```
+	<servlet-mapping>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>*.sp4</url-pattern>
+	</servlet-mapping>
+```
+4. 또 분류에 따라 board-controller로 이동  
+WebContent/WEB-INF/spring-servlet.xml
+```
+	<bean id="url-mapping" 
+	class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/board/getBoardList.sp4">board-controller</prop>
+				<prop key="/board/jsonGetBoardList.sp4">board-controller</prop>
+			</props>
+		</property>
+	</bean>
+```
+5. board-controller로 와서 코드가 시킨 board-logic을 참고, 클래스 web.mvc.Board41Controller.java 참고  
+WebContent/WEB-INF/spring-servlet.xml
+```
+	<bean id="board-controller" class="web.mvc.Board41Controller">
+		<property name="methodNameResolver" ref="board-resolver"/>
+		<property name="boardLogic" ref="board-logic"/>
+	</bean>
+```
+6.board-mdao & board-sdao 참고, 클래스 web.mvc.Board41Logic.java 참고  
+WebContent/WEB-INF/spring-service.xml
+```
+	<bean id="board-logic" class="web.mvc.Board41Logic">
+		<property name="boardMDao" ref="board-mdao"/>
+		<property name="boardSDao" ref="board-sdao"/>
+	</bean>
+```
+7. 계속 경로 참조해서 오라클 접속  
+WebContent/WEB-INF/spring-data.xml
+```
+	<bean id="data-source-target" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:oracle:thin:@***.0.0.1:1521:orcl11</value>
+		</property>
+		<property name="username">
+			<value>*****</value>
+		</property>
+		<property name="password">
+			<value>*****</value>
+		</property>
+	</bean>
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="WEB-INF/mybatis-config.xml"/>
+		<property name="dataSource" ref="data-source-target"/>		
+	</bean>
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="board-mdao" class="web.mvc.Board41MDao">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"/>
+	</bean>
+	<bean id="board-sdao" class="web.mvc.Board41SDao">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"/>
+	</bean>
+```
+8. 오라클에서 값 받아오고 돌아와서  
+WebContent/WEB-INF/mybatis-config.xml
+```
+ <typeAliases>
+ 	<typeAlias alias="bmVO" type="com.vo.BoardMVO"/>
+ 	<typeAlias alias="bsVO" type="com.vo.BoardSVO"/>
+ </typeAliases>
+ <mappers>
+ 	<mapper resource="com/mybatis/mapper/board.xml"/>
+ </mappers>
+```
+9. board-logic로 오고
+10. board-controller 와서
+11. 컨트롤러에서 다시 Dispatcher 서블릿으로  
+WebContent/WEB-INF/spring-servlet.xml  
+```
+	<bean id="board-controller" class="web.mvc.Board41Controller">
+		<property name="methodNameResolver" ref="board-resolver"/>
+	</bean>
+```
+12. board-resolver로 와서  
+WebContent/WEB-INF/spring-servlet.xml
+```
+	<bean id="board-resolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/board/getBoardList.sp4">getBoardList</prop>
+				<prop key="/board/jsonGetBoardList.sp4">jsonGetBoardList</prop>
+			</props>
+		</property>
+	</bean>
+```
+13. 경로 지정해주고 뒤에 jsp붙여줘서 숨어있는? WEB-INF/views/board/getBoardList.jsp를 불러왔다  
+WebContent/WEB-INF/spring-servlet.xml
+```
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+```
