@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Form_Top" width="1930" height="50" titletext="Form_Top" background="#ffc0cb">
+    <Layouts>
+      <Layout width="1930" height="50" screenid="Desktop_screen">
+        <Button id="Button00" taborder="0" text="로그아웃" left="1790" top="3" width="133" height="44" textAlign="center"/>
+        <Static id="Static05" taborder="1" text="알림영역" left="1220" top="7" width="527" height="37" border="1px ridge" onclick="Static00_onclick" font="normal 13pt/normal &quot;Arial&quot;" textAlign="center"/>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>

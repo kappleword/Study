@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Form_Bottom" width="1760" height="100" titletext="Form_Bottom" background="#9370DB">
+    <Layouts>
+      <Layout width="1760" height="100" screenid="Desktop_screen">
+        <Static id="Static00" taborder="0" text="파프리카 COMPANY, 서울특별시 뭐시기수 뭐시기동 뭐시기저시기, 02-1234-5678, FAX)02-1588-5588" left="605" top="21" width="805" height="59" onclick="Static00_onclick" font="normal bold 13pt/normal &quot;normal/normal&quot;" textAlign="center" color="#ffefef"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.Static00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+]]></Script>
+  </Form>
+</FDL>

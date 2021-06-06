@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Form_Left" width="200" height="930" titletext="Form_Left" border="1,1px,,">
+    <Layouts>
+      <Layout width="200" height="930" screenid="Desktop_screen">
+        <Static id="Static00" taborder="0" text="개발 1팀 김철수 lv.1" left="6" top="3" width="189" height="77" border="1px ridge" onclick="Static00_onclick" font="normal 13pt/normal &quot;Arial&quot;" textAlign="center"/>
+        <Static id="Static08" taborder="1" text="달력" left="7" top="710" width="189" height="210" border="1px ridge" onclick="Static00_onclick" font="normal 13pt/normal &quot;Arial&quot;" textAlign="center"/>
+        <Button id="Button00" taborder="2" text="게시판" left="6" top="96" width="186" height="81" font="normal 15pt/normal &quot;Arial&quot;"/>
+        <Button id="Button00_00" taborder="3" text="전자결제" left="7" top="208" width="186" height="81" font="normal 15pt/normal &quot;Arial&quot;" onclick="Button00_00_onclick"/>
+        <Button id="Button00_00_00" taborder="4" text="인사" left="7" top="308" width="186" height="81" font="normal 15pt/normal &quot;Arial&quot;"/>
+        <Button id="Button00_00_00_00" taborder="5" text="근태관리" left="7" top="408" width="186" height="81" font="normal 15pt/normal &quot;Arial&quot;"/>
+        <Button id="Button00_00_00_00_00" taborder="6" text="메일" left="10" top="508" width="186" height="81" font="normal 15pt/normal &quot;Arial&quot;"/>
+        <Button id="Button00_00_00_00_00_00" taborder="7" text="회계" left="10" top="618" width="186" height="81" font="normal 15pt/normal &quot;Arial&quot;"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.TextArea00_onchanged = function(obj:nexacro.TextArea,e:nexacro.ChangeEventInfo)
+{
+	
+};
+
+this.Static00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+this.Button00_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	
+};
+]]></Script>
+  </Form>
+</FDL>
