@@ -1,3 +1,36 @@
+# 21/06/06
+### Javascript
+* Javascript의 가장 중요한 역할는 사용자와 상호작용 하는 것, 이러한 Javascript의 특성을 이용해서 우리는 웹페이지를 더 동적으로 만듬
+* HTML의 script 태그 안에는 Javascript 코드 사용, 동적으로 다양하게 출력가능 <-> HTML 코드 정적 문자 그대로를 출력
+* alert('경고내용') : Javascript 경고창 띄워주는 명령어 (이벤트 조건 만족 시 '경고내용' 경고창이 뜸)
+  - 구조 : alert('hi')
+* 콘솔 창으로 Javascript 코드를 실행가능, alert를 예시로 들면 현재 페이지에서 바로 경고창으로 출력가능
+* 스타일으로 색 변경 가능 ex) style="background-color: black; color: white;"
+* div와 span : CSS나 Javascript 코드를 삽입하기 위해서 존재하는 태그
+  - div 태그는 화면 전체를 사용하기 때문에 줄바꿈이 되고, span은 줄바꿈이 되지 않음
+* js 클래스를 만든 후 안에 속성 넣고, html코드에 적용 가능
+```
+ .js {
+        font-weight: bold;
+ }
+<span class="js">Javascript</span> is wonderful!
+```
+* 클래스 대신 id도 사용 가능한데 id는 한 페이지에서 딱 한번밖에 못 씀
+```
+ #first {
+    color: green;
+ }
+```
+* 우선 순위는 id > class > 태그
+  - 이를 이용해 class 위에 id를 얹어서 구현가능 (class로 광범위한 효과를 주고, id를 이용해 그것 만 예외적으로 디자인 변경 가능 )
+* querySelector("찾을내용") : 원하는 태그를 선택해줌
+  - 구조 : documnet.querySelector("body").style.backgroundColor = 'black';
+
+### 넥사크로
+* 프로젝트 생성 후 작업 환경 세팅, 톰캣 서버 연동 복습
+* 간단하게 ui화면 그리기
+![ui](./img/0606_ui.png)
+
 # 21/06/05
 ### 넥사크로
 ![nexacro0605](./img/nexacro_0605.png)
