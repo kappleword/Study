@@ -1,4 +1,33 @@
 # 21/06/07
+### HTML
+* index.html파일 안에 `<link rel="stylesheet" href="파일이름.css">`으로 스타일.css와 연결해줘야 적용됨
+* grid를 이용해 화면 영역 나누기
+1. 화면 영역을 나눠주고
+```css
+.main-container {
+  width: 1080px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 균일한 크기로 3등분 */
+  grid-template-rows: repeat(24, 40px); /* 40px로 24등분 */
+  gap: 10px;
+}
+```
+2. 클래스별 속성 생성 후
+```
+.box-one {
+  grid-column: 1 / 3; /* 나눈 영역을 지정해줘서 영역 크기 설정 */
+  grid-row: 1 / 3;
+}
+.temp-box {
+  background: skyblue;
+  text-align: center;
+  font-size: 30px;
+  border: 1px solid #010102;
+}
+```
+3. `<div class="temp-box box-one">1</div>` 이런식으로 적용해주면 끝
+
 ### JavaScript
 * 구조
   - <head> CSS, JavaScript, Jquery, 공통코드들(include)
@@ -42,14 +71,16 @@ function test() {
 * div와 span : CSS나 Javascript 코드를 삽입하기 위해서 존재하는 태그
   - div 태그는 화면 전체를 사용하기 때문에 줄바꿈이 되고, span은 줄바꿈이 되지 않음
 * js 클래스를 만든 후 안에 속성 넣고, html코드에 적용 가능
-```javascript
+```css
  .js {
         font-weight: bold;
  }
+```
+```javascript
 <span class="js">Javascript</span> is wonderful!
 ```
 * 클래스 대신 id도 사용 가능한데 id는 한 페이지에서 딱 한번밖에 못 씀
-```javascript
+```css
  #first {
     color: green;
  }
