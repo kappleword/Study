@@ -45,8 +45,9 @@ function test() {
           }
         }
 ```
-*
 * 배열 : 3가지 방법으로 선언 가능
+	- `document.write(d3.length);` : 배열 길이 출력도 가능, 3 출력됨
+	- d3.push("coconut");` :  배열의 맨 뒤에 coconut 값 추가
 ```javascript
 function test() {
 	const d1 = new Array();
@@ -56,7 +57,9 @@ function test() {
 	const d2 = new Array(50, "태블릿",false);
 	const d3 = [90,"핸드폰",true];
 ```
-
+* 비교연산자
+	- === : 동등, html에서는 `&lt;`는 <를 의미하는 것이고, `&gt;`가 >를 의미한다
+* 리팩토링 : Javascript에는 자기 자신을 가리키기 위한 this를 사용 가능하다
 
 
 
