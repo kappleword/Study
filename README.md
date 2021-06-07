@@ -1,5 +1,38 @@
+# 21/06/07
+### JavaScript
+* 구조
+  - <head> CSS, JavaScript, Jquery, 공통코드들(include)
+  - <body> DOM Tree
+  - `$(document).ready(function {     });`    >>> $:Jquery 기반 	
+* `document.write("내용");` >>> document = html문서, write = 함수
+* if문
+```javascript
+function test() {
+          if (true && true) {
+            document.write("같다.","<br>");
+          }
+          else {
+            document.write("다르다.");
+          }
+        }
+```
+*
+* 배열 : 3가지 방법으로 선언 가능
+```javascript
+function test() {
+	const d1 = new Array();
+	d1[0] = 30;
+	d1[1] = "닌텐도";
+	d1[2] = true;
+	const d2 = new Array(50, "태블릿",false);
+	const d3 = [90,"핸드폰",true];
+```
+
+
+
+
 # 21/06/06
-### Javascript
+### JavaScript
 * Javascript의 가장 중요한 역할는 사용자와 상호작용 하는 것, 이러한 Javascript의 특성을 이용해서 우리는 웹페이지를 더 동적으로 만듬
 * HTML의 script 태그 안에는 Javascript 코드 사용, 동적으로 다양하게 출력가능 <-> HTML 코드 정적 문자 그대로를 출력
 * alert('경고내용') : Javascript 경고창 띄워주는 명령어 (이벤트 조건 만족 시 '경고내용' 경고창이 뜸)
@@ -9,14 +42,14 @@
 * div와 span : CSS나 Javascript 코드를 삽입하기 위해서 존재하는 태그
   - div 태그는 화면 전체를 사용하기 때문에 줄바꿈이 되고, span은 줄바꿈이 되지 않음
 * js 클래스를 만든 후 안에 속성 넣고, html코드에 적용 가능
-```
+```javascript
  .js {
         font-weight: bold;
  }
 <span class="js">Javascript</span> is wonderful!
 ```
 * 클래스 대신 id도 사용 가능한데 id는 한 페이지에서 딱 한번밖에 못 씀
-```
+```javascript
  #first {
     color: green;
  }
@@ -87,7 +120,7 @@ import로 복사한 프로젝트 등록할때 already Exist뜨면
 1. 요청이 올 때 (예시는 http://localhost:9001/board/getBoardList.sp4)
 2. 프론트 컨트롤러인 Dispatcher 서블릿이 처리 후 적절한 세부 컨트롤러한테 작업을 뿌려준다  
 WebContent/WEB-INF/web.xml
-```
+```html
 	<servlet>
 		<servlet-name>appServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -100,7 +133,7 @@ WebContent/WEB-INF/web.xml
   ```
 3. xxx.sp4니 spring-servlet.xml로 보내서  
 WebContent/WEB-INF/web.xml
-```
+```html
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>*.sp4</url-pattern>
@@ -108,7 +141,7 @@ WebContent/WEB-INF/web.xml
 ```
 4. 또 분류에 따라 board-controller로 이동  
 WebContent/WEB-INF/spring-servlet.xml
-```
+```html
 	<bean id="url-mapping" 
 	class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="mappings">
@@ -121,7 +154,7 @@ WebContent/WEB-INF/spring-servlet.xml
 ```
 5. board-controller로 와서 코드가 시킨 board-logic을 참고, 클래스 web.mvc.Board41Controller.java 참고  
 WebContent/WEB-INF/spring-servlet.xml
-```
+```html
 	<bean id="board-controller" class="web.mvc.Board41Controller">
 		<property name="methodNameResolver" ref="board-resolver"/>
 		<property name="boardLogic" ref="board-logic"/>
@@ -129,7 +162,7 @@ WebContent/WEB-INF/spring-servlet.xml
 ```
 6.board-mdao & board-sdao 참고, 클래스 web.mvc.Board41Logic.java 참고  
 WebContent/WEB-INF/spring-service.xml
-```
+```html
 	<bean id="board-logic" class="web.mvc.Board41Logic">
 		<property name="boardMDao" ref="board-mdao"/>
 		<property name="boardSDao" ref="board-sdao"/>
@@ -137,7 +170,7 @@ WebContent/WEB-INF/spring-service.xml
 ```
 7. 계속 경로 참조해서 오라클 접속  
 WebContent/WEB-INF/spring-data.xml
-```
+```html
 	<bean id="data-source-target" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName">
 			<value>oracle.jdbc.driver.OracleDriver</value>
@@ -168,7 +201,7 @@ WebContent/WEB-INF/spring-data.xml
 ```
 8. 오라클에서 값 받아오고 돌아와서  
 WebContent/WEB-INF/mybatis-config.xml
-```
+```html
  <typeAliases>
  	<typeAlias alias="bmVO" type="com.vo.BoardMVO"/>
  	<typeAlias alias="bsVO" type="com.vo.BoardSVO"/>
@@ -181,14 +214,14 @@ WebContent/WEB-INF/mybatis-config.xml
 10. board-controller 와서
 11. 컨트롤러에서 다시 Dispatcher 서블릿으로  
 WebContent/WEB-INF/spring-servlet.xml  
-```
+```html
 	<bean id="board-controller" class="web.mvc.Board41Controller">
 		<property name="methodNameResolver" ref="board-resolver"/>
 	</bean>
 ```
 12. board-resolver로 와서  
 WebContent/WEB-INF/spring-servlet.xml
-```
+```html
 	<bean id="board-resolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
 		<property name="mappings">
 			<props>
@@ -200,7 +233,7 @@ WebContent/WEB-INF/spring-servlet.xml
 ```
 13. 경로 지정해주고 뒤에 jsp붙여줘서 숨어있는? WEB-INF/views/board/getBoardList.jsp를 불러왔다  
 WebContent/WEB-INF/spring-servlet.xml
-```
+```html
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/"/>
 		<property name="suffix" value=".jsp"/>
