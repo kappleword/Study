@@ -1,3 +1,46 @@
+# 21/06/08
+### JavaScript
+* 객체 종류 3가지
+  - 내장 객체 : 사용자 객체도 포함된다
+  - 브라우저 객체모델 BOM : 브라우저 관련 객체로 브라우저와 관련된 정보를 얻거나 제어할 수 있게 해줌
+  - 문서 객체 DOM : HTML 태그들을 객체화 한 것이며, 주로 HTML 페이지의 내용과 속성 등을 제어하기 위해 사용
+* html
+  - head : meta tag(검색엔진,포털사이트 정부 수집 용) ,view port, 인코딩타입, 호이스팅(hoisting)이 일어나는곳
+  - body : 화면 출력 포지션
+* 템플릿 리터럴 (내장된 표현식을 허용하는 문자열 리터럴)
+  - 참고 : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
+* 배열은 [], Object는 {}사용 할 것
+* 일반 함수 정의방식과 익명 함수 선언 참조 방식의 차이점
+  - 일반 함수 정의는 함수 호출 시 호이스팅(hoisting) 기술을 지원한다, but 익명 함수 선언 참조 방식은 호이스팅을 지원하지 않는다
+  - 호이스팅을 적용하면 호출문이 함수 정의문 보다 먼저 나와도 호이스팅이 함수 정의문을 끌어올려서(head로) 함수를 호출한다
+* 프로토타입(prototype) : 자바 static과 비슷한 기능으로 사용에 따라 메모리 할당을 줄일 수 있음
+```javascript
+function Person() {
+  this.eyes = 2;
+  this.nose = 1;
+}
+let kim  = new Person();
+let park = new Person();
+console.log(kim.eyes);  // => 2
+```
+↓이런식으로 변경 가능
+```javascript
+function Person() {}
+Person.prototype.eyes = 2;
+Person.prototype.nose = 1;
+let kim  = new Person();
+let park = new Person():
+console.log(kim.eyes); // => 2
+```
+
+###Spring
+```
+INSERT INTO board_master(bm_no,bm_title,bm_writer,bm_content,bm_date,bm_hit,bm_group,bm_pos,bm_step,bm_pw,bm_email)
+VALUES(#{bm_no},#{bm_title},#{bm_writer},#{bm_content},#{bm_date},#{bm_hit,#{bm_group},#{bm_pos},#{bm_step},#{bm_pw},#{bm_email})
+VALUES(SELECT 문.......)
+```
+`localhost:9001/board/boardInsert.sp4?bm_no=100&bm_title=제목&bs_file=a.txt&bm_writer=김철수&bm_email=test@hot.com&bm_content=글내용&bm_pw=123`
+
 # 21/06/07
 ### HTML
 * index.html파일 안에 `<link rel="stylesheet" href="파일이름.css">`으로 스타일.css와 연결해줘야 적용됨
@@ -58,7 +101,7 @@ function test() {
 	const d3 = [90,"핸드폰",true];
 ```
 * 비교연산자
-	- === : 동등, html에서는 `&lt;`는 <를 의미하는 것이고, `&gt;`가 >를 의미한다
+	- === : 동등, html에서는 `&lt;`는 < 를 의미하는 것이고, `&gt;`는 > 를 의미한다
 * 리팩토링 : Javascript에는 자기 자신을 가리키기 위한 this를 사용 가능하다
 
 
