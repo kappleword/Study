@@ -1,3 +1,17 @@
+# 21/06/09
+### JavaScript (ES6, ES11)
++ Object initializer(객체 초기자)
++ Destructuring assignment (구조 분해 할당)
++ Array
++ Default parameters(기본값 매개변수)
++ Spread Syntax (전개 구문)
++ Optional Chaining
++ Nullish coalescing operator(널 병합 연산자) 
+
+
+
+
+
 # 21/06/08
 ### JavaScript
 * 객체 종류 3가지
