@@ -55,9 +55,16 @@ console.log(fruits);//Array["🍏","🍈","🍌","🍍"]
         const message = num ?? 'undefinded';
         console.log(message);//0
 ```
-
-
-
+### Bootstrap
++ 부트스트랩은 반응형이며 모바일 우선인 웹프로젝트 개발을 위한 가장 인기있는 HTM, CSS, JS 프레임워크 >> 웹사이트 개발 프레임워크
++ 표시 내용은 `<div class="container">` 안에 써야한다  
+`<div class="container">` 태그는 내용 주위에 약간의 여백을 제공해주고, 이것이 없으면 콘텐츠가 윈도우의 끝까지 다 꽉차게 표시가되서 사용의미가 없어진다
++ "bootstrap.css"와 "bootstrap-theme.css", "jQuery"는 반드시 로딩해줘야 한다
+```html
+<link rel="stylesheet" href="./css/bootstrap.min.css">
+<script src="./js/jquery-3.1.1.min.js"></script> 
+<script src="./js/bootstrap.min.js"></script>
+```
 
 # 21/06/08
 ### JavaScript
