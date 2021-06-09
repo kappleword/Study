@@ -1,13 +1,60 @@
 # 21/06/09
 ### JavaScript (ES6, ES11)
-+ Object initializer(객체 초기자)
-+ Destructuring assignment (구조 분해 할당)
-+ Array
++ Object initializer(객체 초기자) : obj의 key와 value가 동일하면 하나로 쓸 수 있다.
++ Destructuring assignment (구조 분해 할당) : 배열,객체 사용 가능
 + Default parameters(기본값 매개변수)
+```
+    function print(msg){
+        if(msg==null){
+            msg='default message';
+        }
+        console.log(msg);
+    }
+    print('hello');
+    print();
+    {
+        function print(msg='default message'){        
+            console.log(msg);
+        }
+        print('hl');
+        print();
+    }
+```
 + Spread Syntax (전개 구문)
-+ Optional Chaining
-+ Nullish coalescing operator(널 병합 연산자) 
+  - 배열을 복사하기
+```javascript
+const fruit1 = ['🍏', '🍈'];
+const fruit2 = ['🍌','🍍'];
+const fruits = [...fruits1, ...fruits2];
+console.log(fruits);//Array["🍏","🍈","🍌","🍍"]
+```
++ Optional Chaining 연산자 ?.는 체인의 각 참조가 유효한지 명시적으로 검증하지 않고, 연결된 객체 체인 내에 깊숙이 위치한 속성 값을 읽을 수 있다
+```javascript
+    {//노가다
+        function print(worker){
+            console.log(worker.job && worker.job.manager && worker.job.manager.name);
+        }
+        print(worker1);
+        print(worker2);
+    }
+    {//추천
+        function print(worker){
+            console.log(worker.job?.manager?.name);
+        }
+        print(worker1);
+        print(worker2);
+    }
+```
++ Nullish coalescing operator(널 병합 연산자) ?? : 왼쪽 피연산자가 null 또는 undefined일 때 오른쪽 피연산자를 반환하고, 그렇지 않으면 왼쪽 피연산자를 반환함
+```javascript
+	const name = '';
+        const userName = name ?? 'Guest';
+        console.log(userName);//""
 
+        const num = 0;
+        const message = num ?? 'undefinded';
+        console.log(message);//0
+```
 
 
 
