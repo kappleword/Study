@@ -1,9 +1,58 @@
+# 21/06/11
+node.js > 브라우저 없이 테스트하고 싶을 때 사용
+
+### Bootstrap
++ 선이 생기던 문제는 `<hr>`을 사용해서 생긴 문제였다. 일단 `<div class="row">&nbsp</div>`를 대신 사용해서 해결했다 
++ 하위메뉴 넣기는 아래코드를 이용해서 해결 `collapse`를 사용해서 열고 닫기를 할 수 있다 
+```html
+        <a href="#demo" class="nav-link text-white" aria-current="page" data-toggle="collapse">
+          <svg class="bi me-2" width="16" height="25">
+            <use xlink:href="#home"></use>
+          </svg>
+          내정보
+        </a>
+        <div id="demo" class="collapse show"> <!-- 하위 메뉴 -->
+          <ul class="collapse__menu">
+            <a href="#" class="nav-link text-white">신상정보조회</a>
+            <a href="#" class="nav-link text-white">신상정보수정</a>
+            <a href="#" class="nav-link text-white">종합정보조회</a>
+            <a href="#" class="nav-link text-white">본학기조회</a>
+            <a href="#" class="nav-link text-white">수강성적조회</a>
+          </ul>
+        </div>
+```
+# 21/06/10
+
+### Spring
+![06.10codereview](./img/06.10codereview.jpg)
++ 스크립트, ready 사용
++ #이 오면 유니크. 자바에선 protected, erd에선 PK
++ 실행문이 오는 자리 : 열거형 연산자(,) + 이벤트 처리 ②번
++ 부적절한 식별자 오류발생 > DML >SOL > Toad를 봐라
++ field > 컬럼명 : VO, 컬럼, key와 변수 이름을 똑같게 맞춰줘야한다
++ 41번라인
+`<table id="dg_board" class="easyui-datagrid" data-options="url:'./jsonGetBoardList.sp4',toolbar:'#tb_board', url:'./jsonGetBoardList.sp4'"style="width: 1000px; height: 350px">`
+  - data-options : 표준은 아니고 easyui에서 준 값
+  - data-options 문법구조 => "이름 : '값', 이름2 : '값2' "
+
+![06.10codereview2](./img/06.10codereview2.jpg)
++ ready() >> xxx.sp4
++ 버튼 xxx.jsp >> js로 해야함(tag는 안된다)
++ 라인19~24, 함수선언 : <table 
++ 라인32-38, 초기화관련 >> lifecycle >> react
++ id값 앞에는 #붙인다
++ 콤마, 없으면 화면 깨진다
+	
+### Bootstrap
+* 부트스트랩을 활용하여 반응형 웹페이지 loginpage와 mainpage 틀을 만들었다
+* 뜬금없이 생긴 선과 mainpage 사이드바에 하위메뉴 넣기 실패
+
 # 21/06/09
 ### JavaScript (ES6, ES11)
 + Object initializer(객체 초기자) : obj의 key와 value가 동일하면 하나로 쓸 수 있다.
 + Destructuring assignment (구조 분해 할당) : 배열,객체 사용 가능
 + Default parameters(기본값 매개변수)
-```
+```javascript
     function print(msg){
         if(msg==null){
             msg='default message';
