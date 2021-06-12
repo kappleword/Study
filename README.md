@@ -1,3 +1,63 @@
+# 21/06/12
+
+### Spring
+#### spring-servlet.xml
+![spring-servlet.xml-1](./img/0611code1.PNG)
+* spring-servlet.xml : Controller, 응답페이지, 첨부파일 관련 처리, 고급기능 : 보안, 인증관련, 프론트개발자와 유저간의 인터셉트
+* Spring은 Bean으로 클래스를 관리한다
+* 라인6 : `BeanNameUrlHandlerMapping` : 이름으로 관리해서 메소드를 나누어서 처리하는게 불가능
+* 라인21 : `SimpleUrlHandlerMapping` : url + 메소드 이름을 매핑처리 가능하다
+* 의존(주입)관계 때문에 key와 value로 클래스 정보를 관리한다
+* Beanfactory, Aplication Context가 빈을 관리한다
+* `<bean id=~~~>` ====의존성 주입(DI, Dependency Injection)===>`<property name=~~~>`
+
+![spring-servlet.xml-2](./img/0611code2.PNG)
+* value -> 메소드 이름들(여기로 찾아간다)
+* 라인59 : 응답페이지처리 -> viewResolver가 처리 -> ModelAndView와 연결
+* preifx(접두어), suffix(접미어)의 처리 방법 2가지
+  + java : 컴파일을 해야해서 버전 관리 어려움, 개발자 선호
+  + xml : 버전 관리 쉬움, 전체적으로 볼 수 있어서 관리자 선호
+#### spring-service.xml
+![spring-service.xml](./img/0611code3.PNG)
+* 버스정거장 정도의 역할로 보이지만 트랜잭션(Transaction)을 처리하고 AOP사상이담긴 프레임워크j를 사용해서 환경세팅한다
+* 메소드 이름이 crudxxx, doxxx이런 형식으로 오면 TR처리로 일괄처리 `throw e;` 로 한다는데 추후학습예정
+#### spring-data.xml
+![spring-data.xml](./img/0611code4.PNG)
+* 라인1 : xml 선언문 (버전과 인코딩 순서 변경도 불가능)
+* 라인5~18 : 지금은 원시적인 형태, 컨넥션 pool로 변경하면 좋다
+* 라인19 : class자리에 type(상위개념인 추상클래스, 인터페이스 가능)도 올 수 있다
+  + 뒤에 Bean이 붙은것을 보고 mybatis의 spring.jar이 제공해주는 것을 알 수 있다
+* `<bean id="sqlSessionFactory"~` : 커넥션 역할, 물리적으로 떨어진 오라클 서버와의 연결통로를 확보함
+  + 회사정보, ip주소, s아이디, 계정 정보들이 필요하다
+* 라인20 : DMl문장은 가지고 있는 물리적 위치 등록
+* 처리 요청은 sqlSessionTemplate에서 한다, 커밋과 롤백도 고려 대상임
+* 라인24 : Dao안에 27라인의 객체가 주입되어야 Dao클래스에서 Mybatis레이어와 소통이 가능하다
+  + 부트는 @AutoWired로 처리 가능하다
+* property name은 임의로 바꾸지 않는게 좋다
+#### board.xml
+![board.xml-1](./img/0611code5.PNG)
+* DOCTYPE : 일종의 선언문 해석하면 루트태그는 mapper로 시작해야한다, 버전3.0, 영어 .dtd(Tag 명세서)
+* 라인 5 : log4j 설정에 필요한 값
+* 라인 6~20 : resultmap은 join시 불편해서 기존의 map방식 사용이 추천됨
+* 라인 21~26 : 게시판 글삭제시 사용하는 쿼리문
+  + id로 구분함 `??? = #{value}` 형태
+* 라인 27 : 글번호를 채번하는 문장
+* 라인 28 : `/*` = 힌트문, NVL = 널 체크 함수, desc = 내림차순
+
+![board.xml-2](./img/0611code6.PNG)
+* 라인 30 : 값이 Null이면 0으로 치환 후 1을 더해서 글번호를 채번한다 (학습용으로 이렇게 했지만 보통은 시퀀스(seq)를 쓴다)
+* 라인 32 그룹 번호 : 계층형 게시판 구현을 위해 그룹번호가 필요하다
+  - index문을 실행하기 위해 라인35의 늘 통과되는 멍청한 조건을 걸어준다
+  - rownum : 스탑키 역할을 한다, 전체범위처리에서 부분범위처리로 바꿔줌
+* 라인 38~43 : 마스터 테이블
+* 라인 45~47 : 첨부파일 유무를 체크, 첨부파일이 있다면 subtable에 Insert해줌
+* 라인 48~52 : 조회수
+![board.xml-3](./img/0611code7.PNG)
+* 라인 53~58 : Step(순서) 업데이트문
+  - 라인56~57 : UI에서 넘어와야 한다 (<from>전송을 해야한다)
+  - 화면에 보이지 않는 값들 `<hidden = "bmg", bm.pos, bm.step` 
+* 라인 59~68 : join이 일어난다
+		69~74 : 맵으로 처리하는 select (test용 구문임)	   
 # 21/06/11
 node.js > 브라우저 없이 테스트하고 싶을 때 사용
 
