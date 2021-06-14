@@ -1,3 +1,5 @@
+### Spring
+
 # 21/06/13
 
 ### Spring
@@ -36,6 +38,52 @@ throws Exception
 ```
 + HttpServletRequest req : http프로토콜의 request정보를 서블릿에게 전달하기 위한 목적으로 사용한다
 + HttpServletResponse res : 클라이언트에게 응답을 보내기 위해 HttpServletResponse객체를 생성해 서블릿에게 전달하고, 서블릿은 받은 객체를 이용하여 응답코드,응답메시지 등을 전송한다
++ HashMap구조의 target에 bind로 주소로 같이 입력받은 키와 value들을(bm_no, bm_title 등등) put으로 집어넣었다
+  - *아래코드 참고* HashMapBinder을이용해 요청 url에 들어있는 주소값을 전달함 
+  - Enumeration으로 요청받은 키값들을 열거해서 en에 넣어서
+  - while문으로 en에 넣은 키 값이 없어질때까지 하나씩 돌리는데 en.nextElement()로 다음 키 값으로 넘기고
+  - key 값과 HangulConversion.toUTF으로 한글화시킨 value를 세트로해서 target에 넣어줬다 
+```java
+public HashMapBinder(HttpServletRequest request) {
+		this.request = request;
+	}
+public void bind(Map<String, Object> target) {
+	//열거한다= 요청받은 키값을 bm_no등등
+	Enumeration<String> en = request.getParameterNames();
+	// <input type="text" name="mem_id"
+	//키값이 존재하지않을떄까지루프돌림
+	while (en.hasMoreElements()) {
+		//커서를내리면서 다음 요소를 불러온다
+		String key = en.nextElement();
+		logger.info("value:" + request.getParameter(key));
+		//target이름에 map을 넣어준다, put을 통해 //키값에 값을 한글화시켜준
+		target.put(key, HangulConversion.toUTF(request.getParameter(key)));
+	}
+}
+```
++ Map 데이터를 List에서 삽입한 구조의 boardList를 선언해주고 target을 가지고 boardLogic의 getBoardList 메소드로 간다
+```java
+public List<Map<String, Object>> getBoardList(Map<String, Object> pmap) {
+	logger.info("getBoardList 호출 성공");
+	List<Map<String, Object>> boardList = null;
+	boardList = boardMDao.getBoardList(pmap);
+	return boardList;
+}
+```
++ boardLogic으로 와서 동일하게 boardList 선언 후 pmap을 가지고 boardDao의 getBoardList 메소드로 간다
+```java
+public List<Map<String, Object>> getBoardList(Map<String, Object> pmap) {
+		List<Map<String, Object>> boardList = null;
+		boardList = sqlSessionTemplate.selectList("getBoardList",pmap);
+		return boardList;
+	}
+```
++ boardDao로 와서 동일하게 boardList 선언 후 mybatis sqlSessionTemplate을 통해 쿼리문getBoardList에서 pmap형태로 값을 가져오고
++ boardLogic의 boardList로 리턴, boardController의 boardList로 리턴
++ ModelAndView(컨트롤러의 처리결과를 보여줄 뷰와 전달할 값을 저장할 용도로 쓰인다) 형태의 mav 선언 후
++ setViewName 값에다 spring-servlet.xml에 지정해둔 접두어, 접미어를 붙여 경로를 완성하고
++ addObject로 키와 value값을 담아 보낸다.
+
 
 
 # 21/06/12
