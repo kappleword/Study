@@ -1,4 +1,57 @@
+# 21/06/14
+
 ### Spring
+**링크 클릭에서 조회수 +1 까지**  
+`<td><a href="getBoardDetail.sp4?bm_no=<%=rmap.get("BM_NO")%>"><%=rmap.get("BM_TITLE")%></a></td>`
++ 링크 클릭시 getBoardList.jsp에 있는 위 코드에 의해 bm_no값과 함께 boardController의 getBoardDetail메소드로 날라간다
+```java
+public ModelAndView getBoardDetail(HttpServletRequest req, HttpServletResponse res) 
+			throws Exception
+{
+	HashMapBinder hmb = new HashMapBinder(req);
+	Map<String,Object> target = new HashMap<>();
+	hmb.bind(target);//bm_no값 담음.
+	target.put("gubun", "detail");
+	List<Map<String,Object>> boardDetail = null;
+	boardDetail=boardLogic.getBoardList(target);
+	ModelAndView mav = new ModelAndView();
+	mav.setViewName("board/read");
+	mav.addObject("boardDetail", boardDetail);
+}
+```
++ bind에 의해 HashMap구조의 target에는 (bm_no,누른제목의 번호)라는 키와 value가 담긴다
++ put으로 target에 (”gubun”,”detail”)이라는 키와 value 값이 추가된다
++ 이 값들을 가지고 boarLogic의 getBoardList메소드로 이동
+```java
+public List<Map<String,Object>> getBoardList(Map<String, Object> pmap) {
+	List<Map<String,Object>> boardList = null;
+	String gubun = null;
+	if(pmap.get("gubun")!=null) {
+		gubun = pmap.get("gubun").toString();
+	}
+	if(gubun!=null && "detail".equals(gubun)) {
+		int bm_no = 0;
+		bm_no = Integer.parseInt(pmap.get("bm_no").toString());
+		boardMDao.hitCount(bm_no);
+	}
+	boardList = boardMDao.getBoardList(pmap);
+	return boardList;
+}
+```
++ Map 데이터를 List에서 삽입한 구조의 boardList를 선언해주고 gubun도 스트링으로 선언해준다
++ pmap에 닮긴 키 gubun의 값이 detail로 존재하니 조건은 성립해서 if문은 돌아간다
++ gubun은 값이 있고, .equals(값이 같은지 확인)도 detail로 동일해서 두 조건다 참이니 아래 if문도 돌아간다
++ Integer.parseInt :  문자열을 숫자로 변환
++ boardMDao의 hitCount 메소드로 가서 
+```java
+public void hitCount(int bm_no) {
+	logger.info("hitCount 호출 성공");
+	sqlSessionTemplate.update("hitCount",bm_no);		
+}
+```
++ hitCount의 쿼리문을 수행해서 bm_no의 해당하는 글의 조회수는 +1이 된다
++ 그 후는 21/06/13에 설명한 과정에 의해 상세페이지가 출력된다
++ 일반페이지 조회와 상세조회페이지 둘 다 boardLogic의 getBoardList 메소드를 같이써서 gubun으로 조건을 줘서 분별하고 있다
 
 # 21/06/13
 
