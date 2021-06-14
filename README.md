@@ -1,7 +1,47 @@
+# 21/06/13
+
+### Spring
+**web.xml ~ spring-servlet.xml**
++ DispatcherServlet에 의해 mapping되는데 board-controller를 찾아가게되고   
+```html
+<bean id="board-controller" class="web.mvc.Board41Controller">
+	<property name="methodNameResolver" ref="board-resolver"/>
+	<property name="boardLogic" ref="board-logic"/>
+
+<bean id="board-resolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+	<property name="mappings">
+		<props>
+			<prop key="/board/getBoardList.sp4">getBoardList</prop>
+		</props>
+	</property>
+</bean>
+```
++ board-controller는 board-resolver를 참조해서 PropertiesMethodNameResolverf가 url값과 컨트롤러의 메소드이름을 매핑시켜 해당 동작을 수행해서 Board41Controller.java의 getBoardList메소드로 찾아간다  
+```java
+public ModelAndView getBoardList(HttpServletRequest req, HttpServletResponse res) 
+throws Exception
+{
+	HashMapBinder hmb = new HashMapBinder(req);
+	Map<String,Object> target = new HashMap<>();
+	hmb.bind(target);
+	target.put("gubun","");
+	List<Map<String,Object>> boardList = null;
+	boardList=boardLogic.getBoardList(target);//where bm_no=? and bm_title LIKE '%'||?||'%'
+	logger.info("boardList:"+boardList);//
+	ModelAndView mav = new ModelAndView();
+	mav.setViewName("board/getBoardList");
+	mav.addObject("boardList", boardList);
+	return mav;
+}
+```
++ HttpServletRequest req : http프로토콜의 request정보를 서블릿에게 전달하기 위한 목적으로 사용한다
++ HttpServletResponse res : 클라이언트에게 응답을 보내기 위해 HttpServletResponse객체를 생성해 서블릿에게 전달하고, 서블릿은 받은 객체를 이용하여 응답코드,응답메시지 등을 전송한다
+
+
 # 21/06/12
 
 ### Spring
-#### spring-servlet.xml
+**spring-servlet.xml**
 ![spring-servlet.xml-1](./img/0611code1.PNG)
 * spring-servlet.xml : Controller, 응답페이지, 첨부파일 관련 처리, 고급기능 : 보안, 인증관련, 프론트개발자와 유저간의 인터셉트
 * Spring은 Bean으로 클래스를 관리한다
@@ -17,11 +57,11 @@
 * preifx(접두어), suffix(접미어)의 처리 방법 2가지
   + java : 컴파일을 해야해서 버전 관리 어려움, 개발자 선호
   + xml : 버전 관리 쉬움, 전체적으로 볼 수 있어서 관리자 선호
-#### spring-service.xml
+**spring-service.xml**
 ![spring-service.xml](./img/0611code3.PNG)
 * 버스정거장 정도의 역할로 보이지만 트랜잭션(Transaction)을 처리하고 AOP사상이담긴 프레임워크j를 사용해서 환경세팅한다
 * 메소드 이름이 crudxxx, doxxx이런 형식으로 오면 TR처리로 일괄처리 `throw e;` 로 한다는데 추후학습예정
-#### spring-data.xml
+**spring-data.xml**
 ![spring-data.xml](./img/0611code4.PNG)
 * 라인1 : xml 선언문 (버전과 인코딩 순서 변경도 불가능)
 * 라인5~18 : 지금은 원시적인 형태, 컨넥션 pool로 변경하면 좋다
@@ -34,7 +74,7 @@
 * 라인24 : Dao안에 27라인의 객체가 주입되어야 Dao클래스에서 Mybatis레이어와 소통이 가능하다
   + 부트는 @AutoWired로 처리 가능하다
 * property name은 임의로 바꾸지 않는게 좋다
-#### board.xml
+**board.xml**
 ![board.xml-1](./img/0611code5.PNG)
 * DOCTYPE : 일종의 선언문 해석하면 루트태그는 mapper로 시작해야한다, 버전3.0, 영어 .dtd(Tag 명세서)
 * 라인 5 : log4j 설정에 필요한 값
