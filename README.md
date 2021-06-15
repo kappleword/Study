@@ -1,3 +1,17 @@
+# 21/06/15
+오라클 `delete from board_master2019` : board_master2019테이블 내용 삭제 명령
+### Spring
++ 첨부파일 처리는 반드시 post 방식으로 해야한다.(get방식x)
++ 히든속성 ui쪽에 드러나지 않음
++ 글번호 0으로 나오면서 입력이 안 된 이유
+  + boardMdao에 글번호를 채번 해주는 코드가 없었다
+  + mybatis sqlSessionTemplate을 통해 쿼리문getBmNo를 등록해줘서 해결
++ 무결성 계약 조건 위배 에러
+  + index이름이 실제 등록된것과 안맞으면 발생한다
+  + 쿼리문에 index를 에러메시지에 확인된 이름과 같게 변경해주면 해결
+
+
+
 # 21/06/14
 
 ### Spring
