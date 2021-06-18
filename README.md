@@ -1,3 +1,16 @@
+# 21/06/18
+**forward & redirect & include**
++ forward는 현재 페이지의 요청과 응답에 관한 제어권을 URL로 지정된 주소(매개변수)로 영구적으로 넘긴다
++ redirect는 페이지를 재요청하는 것이며, URL을 보면 리다이렉트 시 해당 jsp 파일의 이름으로 변경되어 있을 것
++ include는 해당 URL로 포워드처럼 제어권을 넘기지만 include된 페이지의 처리가 끝나면 다시 제어권은 원래의 페이지로 돌아온다
+# 21/06/17
+### Git 작업규칙
++ pull request 다음에 merge 전까지 어떤 작업도 하지 않기
++ pull request 하기 직전에 모든 작업물을 commit 후 push하기
++ 안지키면 pull request 좌표와 우리가 의도한 좌표와 어긋남
++ pull request 후 리더급에서 rebase 요청 들어오면
++ 터미널에 git pull --> git rebase origin/main  --> git pull --> git push
+
 # 21/06/16
 브라우저 콘솔 창에서 ctrl + shift + r : 강력한 새로고침, 그냥 F5보다 강한? 새로고침, 캐시까지 지워준다
 
