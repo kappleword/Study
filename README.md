@@ -1,8 +1,24 @@
+# 21/06/19
+VS code : ctrl + alt + ↓↑ (위아래방향키) : 누른방향의 열까지 멀티로 커서가 생겨서 한 번에 내용변경 가능
+### Bootstrap
++ 버튼 사이 간격 주기 : `<button class="btn btn-outline-primary mr-1" href="#">Sign up</button>`
++ 안보이다 누르면 보이는 메뉴 : dropdown
++ 선택하기 : selectpicker
+```html
+<select class="selectpicker">
+          <option>학부:외국어학부</option>
+          <option>학부:건축학부</option>
+          <option>학부:예체능부</option>
+</select>
+```
++ 오늘도 프로젝트 화면을 그렸다
 # 21/06/18
 **forward & redirect & include**
 + forward는 현재 페이지의 요청과 응답에 관한 제어권을 URL로 지정된 주소(매개변수)로 영구적으로 넘긴다
 + redirect는 페이지를 재요청하는 것이며, URL을 보면 리다이렉트 시 해당 jsp 파일의 이름으로 변경되어 있을 것
 + include는 해당 URL로 포워드처럼 제어권을 넘기지만 include된 페이지의 처리가 끝나면 다시 제어권은 원래의 페이지로 돌아온다
+### Bootstrap
+* 프로젝트 화면을 그렸다
 # 21/06/17
 ### Git 작업규칙
 + pull request 다음에 merge 전까지 어떤 작업도 하지 않기
