@@ -1,4 +1,16 @@
-# 21/06/19
+# 21/06/21
+### Android Studio
+![Fragment](./imgFragment.jpg)
++ 프래그먼트(fragment) : 태블릿과 같이 넓은 화면을 가지는 모바일 장치를 위한 메커니즘, 서브 액티비티로 봐도 무방
+  * Activity 안쪽에서 UI 나 프로세스를 정의할 수 있는 더 작은 단위
+  * 독립된 레이아웃을 가질 수 있다 > 화면을 꾸리는 xml을 갖는다
+  * 각 프래그먼트는 독립적으로 사용자 입력을 받고, 개별 라이프사이클을 가지므로, UX를 최적화할 수 있다
+  * 호스트 액티비티가 죽으면(디스트로이) 같이 죽는다
+  * 액티비티 안에 프래그먼트들로만 구성해서 화면을 출력 가능하다
++ 리니어 레이아웃(LinearLayout) : LinearLayout 안에 LinearLayout을 중첩해서 쓸 수 있다 (div처럼)
++ Firebase 관련 소스 등록 위치 : bundle.gradle - dependencies
+
+# 21/06/19,20
 VS code : ctrl + alt + ↓↑ (위아래방향키) : 누른방향의 열까지 멀티로 커서가 생겨서 한 번에 내용변경 가능
 ### Bootstrap
 + 버튼 사이 간격 주기 : `<button class="btn btn-outline-primary mr-1" href="#">Sign up</button>`
