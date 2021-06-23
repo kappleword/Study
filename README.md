@@ -1,5 +1,4 @@
-# 21/06/21
-### Android Studio
+# 21/06/22
 #### 트러블 슈팅(Android Studio)
 ![Ch7Quiz](./img/06.21_Ch7Quiz.png)
 * FRAGMENT2 버튼을 눌러도 화면이 안바뀌는 상황
@@ -16,7 +15,32 @@
   * 액티비티 안에 프래그먼트들로만 구성해서 화면을 출력 가능하다
 + 리니어 레이아웃(LinearLayout) : LinearLayout 안에 LinearLayout을 중첩해서 쓸 수 있다 (div처럼)
 + Firebase 관련 소스 등록 위치 : bundle.gradle - dependencies
-
+### Spring
++ 스프링 부트 : 서블릿으로부터 독립해서 Request와 Response없이도 모든 처리 가능하게 지원
++ Talend API Tester 를 통해서 단위테스트 수월하게 가능
++  ↓ 메이븐 방식의 의존성 주입 구간
+```xml
+<dependency>
+	<groupId>org.apache.tomcat.embed</groupId>
+	<artifactId>tomcat-embed-jasper</artifactId>
+	<scope>provided</scope>
+</dependency>
+```
+```java
+public String toString() {//json형식 앞에 열거형 연산자, 붙이기
+	return "MemberVO{"+
+		"mem_id="+mem_id+'\''+
+		",mem_pw="+mem_pw+'\''+
+		",mem_email="+mem_email+'\''+'}';
+}
+```
++ @RequestParam 상대가 입력한 값을 받아오는 파라미터
++ @GetMapping : GET 요청 방식의 API를 만들때사용
+  + 단순히 @GetMapping 을 사용하면 `@RequestMapping(method = RequestMethod.GET ...)` 과 동일한 효과를 볼 수 있다.
++ @Component와@Bean과의 차이점1 @Component는 클래스 앞에온다, @Bean은 못 옴
+  + 하나의 문서에 여러개의 Bean을 설정할때는 @Configuration사용한다
++ @Pointcut을 이용하면 어드바이 메소드가 적용될 비즈니스 메소드를 정확하게 필터링 할 수 있음
+  + 자세한 내용 https://icarus8050.tistory.com/8 참고
 # 21/06/19
 VS code : ctrl + alt + ↓↑ (위아래방향키) : 누른방향의 열까지 멀티로 커서가 생겨서 한 번에 내용변경 가능
 ### Bootstrap
