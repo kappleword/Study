@@ -1,3 +1,15 @@
+# 21/06/23
+### Android Studio
++ 고급개발자가 되려면 1.Lifecycle을 볼수잇는가 2.intercept를 할 수 잇는가 3. interface를 갈아 넣을수 잇는가
++ getView()는 Adapter 가 가지고 있는 data 를 어떻게 보여줄 것인가를 정의하는데 쓰인다
+  + https://ismydream.tistory.com/150 상세 설명인데 아직은 잘 모르겠음
+
+![0623Android](./img/0623Android.png)
++  ListFragment : Adapter기능,목록스타일지원css
++ 이벤트 처리 코드
+  1. 이벤트 대상이 지원해주는 리스너찾기
+  2. implements하기
+  3. 이벤트 소스 + 이벤트 처리 Handler연결
 # 21/06/22
 #### 트러블 슈팅(Android Studio)
 ![Ch7Quiz](./img/06.21_Ch7Quiz.png)
