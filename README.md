@@ -6,11 +6,47 @@
 
 ![0623Android](./img/0623Android.png)
 +  ListFragment : Adapter기능,목록스타일지원css
-+ 이벤트 처리 코드
-  1. 이벤트 대상이 지원해주는 리스너찾기
-  2. implements하기
-  3. 이벤트 소스 + 이벤트 처리 Handler연결
++ 이벤트 처리 코드(그림 이벤트감지)
+  * 1.이벤트 대상이 지원해주는 리스너찾기 2.implements하기 3.이벤트 소스 + 이벤트 처리 Handler연결
 # 21/06/22
+프론트를 하는이상 파일 확장자 때문에 단정지으면안됨 MINE타입을 항상고려해야한다
+### Ajax
++ 리액트vs아작스 차이점
+  + 리액트는 데이터의 변화나 데이터 흐름에 따른 변화들을 감지해서 상태값이 바뀌면 화면을 새롭게 랜더링함
+  + 아작스는 그런거 없음
+```html
+function startMethod(){
+    	$.ajax({
+    		  type:"get",
+    		  url: "requestGet.xml",
+    		  dataType:"html",
+	          success:function(data){
+	        	  //alert(data);
+	        	  $("#d_xml").html(data);
+	          },
+	          error:function(e){
+	        	  let x = e.responseXML;
+	        	  $("#d_xml").text(x);
+	          }
+    	});    	
+}
+```
+* 코드분석
+  * startMethod 안에 Ajax를 jQuery를 사용해 작성
+  * `$("#d_xml").html(data);` : 확장자는 xml이지만 내용이 html이라 html을 써줌
+  * jquery썻을때 이득 : XMLHttpRequest객체를 직접 인스턴트화 하지 않아도됨
+  * e.responseXML, e.responseText가 기본 기능으로 지원되지만 jQuery를 사용해서 쓸 필요없음(data에 다 들어있다)
+
++ `@Controller`와 `@RestController` 차이점
+  + `@Controller`는 화면을 응답으로 받아낸다
+  + `@RestController`는 응답에대한 데이터를 메시지를 받아낸다
+
+#### 트러블 슈팅(Ajax)
+![ajax_t](./img/ajax_t.png)
+* http://localhost:7001/ajax80/pizza/jsonGetCustomerList이 응답이 없음
+  * RestAjaxController.java의 `@GetMapping("/pizza/getCustomerList")`를 `@GetMapping("/pizza/jsonGetCustomerList")`로 변경해서 해결
+
+### Android Studio
 #### 트러블 슈팅(Android Studio)
 ![Ch7Quiz](./img/06.21_Ch7Quiz.png)
 * FRAGMENT2 버튼을 눌러도 화면이 안바뀌는 상황
