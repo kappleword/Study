@@ -9,7 +9,8 @@
 + 이벤트 처리 코드(그림 이벤트감지)
   * 1.이벤트 대상이 지원해주는 리스너찾기 2.implements하기 3.이벤트 소스 + 이벤트 처리 Handler연결
 # 21/06/22
-프론트를 하는이상 파일 확장자 때문에 단정지으면안됨 MINE타입을 항상고려해야한다
+프론트를 하는이상 파일 확장자 때문에 단정지으면안됨 MINE타입을 항상고려해야한다  
+리액트 할때 fetch API  
 ### Ajax
 + 리액트vs아작스 차이점
   + 리액트는 데이터의 변화나 데이터 흐름에 따른 변화들을 감지해서 상태값이 바뀌면 화면을 새롭게 랜더링함
@@ -40,10 +41,12 @@ function startMethod(){
 + `@Controller`와 `@RestController` 차이점
   + `@Controller`는 화면을 응답으로 받아낸다
   + `@RestController`는 응답에대한 데이터를 메시지를 받아낸다
++ 한글터질시 utf-8추가 : `@GetMapping(value="/pizza/jsonGetCustomerList", produces="application/json;charset=UTF-8")`
++ id에는 #붙이기
 
 #### 트러블 슈팅(Ajax)
-![ajax_t](./img/ajax_t.png)
-* http://localhost:7001/ajax80/pizza/jsonGetCustomerList이 응답이 없음
+![ajax_0622](./img/ajax_0622.png)
+* http://localhost:7001/ajax80/pizza/jsonGetCustomerList 접속시 응답 없음
   * RestAjaxController.java의 `@GetMapping("/pizza/getCustomerList")`를 `@GetMapping("/pizza/jsonGetCustomerList")`로 변경해서 해결
 
 ### Android Studio
