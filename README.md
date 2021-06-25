@@ -8,6 +8,14 @@
 +  ListFragment : Adapter기능,목록스타일지원css
 + 이벤트 처리 코드(그림 이벤트감지)
   * 1.이벤트 대상이 지원해주는 리스너찾기 2.implements하기 3.이벤트 소스 + 이벤트 처리 Handler연결
+### Ajax
+**Spring Boot의 Gradle 방식으로 Hikari CP라는 커넥션 풀을 사용하고 Mybatis 연동하면서 프로시저 써야되고, 로그까지 출력하는 5가지 조립 과정**
++ build.gradle에 mvnrepository에서 Mybatis Spring Boot Starter와 커넥션 툴 HikariCP 등록
+  + 추가 후 Gragld-Refresh Gradle Project 해줄것
++ 쿼리문 등록해야하니 mapper 폴더 추가 후 member.xml생성
+  + namespace : 부트쪽에서는 패키지 이름을 중심으로 모든걸 찾기 떄문에 패키지 이름을 작성해준다 `<mapper namespace="com.example.ajax">`
++ url의 suitable driver class 에러 : db쪽 연동하기 위해서 jdbc api를 활용해야 하는데, 이 부분 의존성 주입이 안되있어서 발생
+  + mvnrepository에서 Spring Boot Starter JDBC를 추가해줘서 해결
 # 21/06/22
 프론트를 하는이상 파일 확장자 때문에 단정지으면안됨 MINE타입을 항상고려해야한다  
 리액트 할때 fetch API  
