@@ -2,7 +2,9 @@
 ### Ajax
 + 로컬에 있는것을 참고할때 `compile fileTree(dir: '/src/main/webapp/WEB-INF/lib', includes: ['*.jar'])`
   * 자동으로 연결이 안되서 로컬로 돌려서 프로젝트를 바라보는 jar를 땡겨올 수 있다
-  * 그래이들 기반의 스프링 프레임워크 환경설정 프로시저 테스트
+  * 그래이들 기반의 스프링 프레임워크 환경설정 프로시저 테스트  
+
+
 **DatabaseConfiguration.java**
 ```java
 @Configuration
@@ -50,7 +52,8 @@ public class DatabaseConfiguration {
 + @Autowired는 Bean팩토리와 동일한 역할, 빈을 전체적으로 관리
 + classpath : 현제프로젝트 루트
 + `return sqlSessionFactoryBean.getObject();` : 오브젝트를 반환 > 커넥션(연결 통로)를 얻음	
-+ `return new HikariConfig();` : 히카리cp 초기화 담당 생성자 호출
++ `return new HikariConfig();` : 히카리cp 초기화 담당 생성자 호출  
+
 **DatabaseConfiguration.java**
 ```java
 @Repository
@@ -136,8 +139,23 @@ public class MemberDao {
 + git fetch project2
 + git merge --allow-unrelated-histories project2/main(브랜치 이름, 따로 안 만들었으면 main임)
 + git remote remove project2 해주면 합쳐진 Repositoriy의 커밋 이력까지 병합 완료
-
-
+# 21/06/24
+네트워크, 통신, 스레드, db연동, mybatis같은 외부 연계, 클라우드 사용시 예외처리(try catch)는 필수
+#### flush
++ 지정한 jsp페이지를 실행하기 전에 출력 버프를 플러시할지 여부를 결정한다. true면 플러시하고 flase면 안함. 기본값은 false
++ 출력버퍼를 플러시한다 의미 : jsp:include 액션태그가 실행될 때 출력버퍼에 저장된 기존 코드들을 플러시하고 서브 페이지로 실행흐름이 이동한다는 말이다.
++ 출력버퍼를 플러시하면 응답 상태 코드와 HTTP 응답헤더가 웹 브라우저에 함께 전송된다.
++ 응답상태코드와 HTTP 응답헤더가 웹브라우저에 전송된다면(flush="true"상태) 새로 헤더정보를 추가하더라도 웹 브라우저는 받을 수 없게 된다.
+  - 따라서 일반적으로 flush 속성을 false 로 지정하는 것이 좋다
+  - 왜냐하면 flush가 true면 출력버퍼는 비워지고 모든 헤더정보를 웹브라우저에 전송하게 되는데 나중에 헤더정보를 추가하게 되면 반영될 수가 없다
++ include에 필요하다( <jsp:include> 액션 태그)
+### Android Studio
++ 안드로이드쪽에서 인터넷에 대한 permission을 열어줘야함
+  + AndroidManifest.xml에 `<uses-permission android:name="android.permission.INTERNET"/>` 추가
+  + 응답을 받아오기 위해 application 밑에 `android:usesCleartextTraffic="true"`도 추가
++ `android:padding="20dp"` : 테두리에 여백 주기
++ padding은 자체 컴포넌트(Component) 내부적으로 주는것, margin은 외적 컴포넌트 끼리 여백이나 간격을 줄때 쓰임
++ strings변수 : 열거형 연산자 
 # 21/06/23
 ### Android Studio
 + 고급개발자가 되려면 1.Lifecycle을 볼수잇는가 2.intercept를 할 수 잇는가 3. interface를 갈아 넣을수 잇는가
