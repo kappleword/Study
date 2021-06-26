@@ -120,11 +120,22 @@ public class MemberDao {
  	});
 	
 ```
-paper 주문지, 주문지의 주소번지를 가져옴
-data가 다양한 형태, api(stringify, parse, JsonObject, JsonArray)로 들어온다 
-jQuery를 왜쓰는가?
-preventDefault : 이벤트 실행을 막아줌
++ paper 주문지, 주문지의 주소번지를 가져옴
++ data가 다양한 형태, api(stringify, parse, JsonObject, JsonArray)로 들어온다 
++ jQuery를 왜쓰는가?
++ preventDefault : 이벤트 실행을 막아줌
+### GitHub
+**Git Repositoriy commit 유지하면서 병합하기**
++ 메인 레포 : project1, 합쳐질 레포 : project2
 
++ 합쳐질 레포 폴더 경로에서 
++ git remote -v로 url 주소 복사 : https://github.com/깃아이디/합쳐질레포이름.git 이런식으로 나옴
+
++ 메인 레포 폴더에 가서
++ git remote add project2 https://github.com/깃아이디/합쳐질레포이름.git 입력
++ git fetch project2
++ git merge --allow-unrelated-histories project2/main(브랜치 이름, 따로 안 만들었으면 main임)
++ git remote remove project2 해주면 합쳐진 Repositoriy의 커밋 이력까지 병합 완료
 
 
 # 21/06/23
