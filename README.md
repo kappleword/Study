@@ -1,3 +1,132 @@
+# 21/06/26
+### Ajax
++ 로컬에 있는것을 참고할때 `compile fileTree(dir: '/src/main/webapp/WEB-INF/lib', includes: ['*.jar'])`
+  * 자동으로 연결이 안되서 로컬로 돌려서 프로젝트를 바라보는 jar를 땡겨올 수 있다
+  * 그래이들 기반의 스프링 프레임워크 환경설정 프로시저 테스트
+**DatabaseConfiguration.java**
+```java
+@Configuration
+@PropertySource("classpath:/application.properties")//properties설정
+public class DatabaseConfiguration {
+	private static final Logger logger = LogManager.getLogger(DatabaseConfiguration.class);
+	
+	@Bean
+	@ConfigurationProperties(prefix = "spring.datasource.hikari")
+	public HikariConfig hikariConfig() {
+		return new HikariConfig();
+	}//오라클의 url, 계정, sid 들을 읽어들이고 autocommit까지 들어있음
+
+	@Bean
+	public DataSource dataSource() {
+		DataSource dataSource = new HikariDataSource(hikariConfig());
+		logger.info("datasource : {}", dataSource);
+		return dataSource;
+	}//파라미터로 메소드 호출(hikariConfig)해서 데이터 소스 객체가 주입된다(RAM에 상주하게된다)
+	
+	@Autowired
+	private ApplicationContext applicationContext;
+
+	@Bean
+	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+		sqlSessionFactoryBean.setDataSource(dataSource);
+		//classpath는 src/main/resourcs이고
+		//해당 쿼리가 있는 xml 위치는 본인의 취향대로 위치키시고 그에 맞도록 설정해주면 된다.
+		sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:/mapper/**/*.xml"));
+		return sqlSessionFactoryBean.getObject();
+	}//spring1-2 xml기반일때 <bean id ="" class="SqlSessionFactory" >와 같은기능
+
+	@Bean
+	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
+		return new SqlSessionTemplate(sqlSessionFactory);
+	}	
+}
+```
++ 어노테이션(Annotation) : 디펜던시 인젝션, 의존성 주입, 제어 역행 등등을 수행 가능
++ @Bean은 @Component 안쪽에서 사용가능, @Configuration있으면 메소드 위에 @Bean 여러개 사용 가능
++ @Component는 클래스 선언 앞에 위치
++ @Autowired : 컨트롤러에서 로직으로 연결할대 사용, 로직에서 다오 연결할때도 사용
++ @Repository :  마이바티스 레이어와 관련된 부분을 인터페이스로 작성해서 자동화 할 수 있다. 여기서는 다오와 마이바티스를 연결하는데 사용했음
++ @Autowired는 Bean팩토리와 동일한 역할, 빈을 전체적으로 관리
++ classpath : 현제프로젝트 루트
++ `return sqlSessionFactoryBean.getObject();` : 오브젝트를 반환 > 커넥션(연결 통로)를 얻음	
++ `return new HikariConfig();` : 히카리cp 초기화 담당 생성자 호출
+**DatabaseConfiguration.java**
+```java
+@Repository
+public class MemberDao {
+	private static final String NAMESPACE = "com.example.ajax.";
+	@Autowired
+	private SqlSessionTemplate sqlSessionTemplate = null;
+
+	public String login(Map<String, Object> pmap) {
+		// TODO Auto-generated method stub
+		String s_name = null;
+		pmap.put("mem_id", "tomato");
+		pmap.put("mem_pw", "123");
+		sqlSessionTemplate.selectOne(NAMESPACE+"proc_login",pmap);
+		System.out.println("r_name:"+pmap.get("r_name"));
+		s_name = pmap.get("r_name").toString();
+		return s_name;
+	}
+	
+}
+```
++ proc_login이 올라와서 `com.example.ajax.proc_login`이 된다
++ selectone(ID값,파라미터) 특이사항은 반환값이 없음
++ 반환값은 파라미터 pmap의 r_name에 담긴다
+
+**pizzaVer2.jsp**
+```javascript
+//피자 주문시 호출 함수  
+    function orderPizza(){
+    	//alert("orderPizza 호출 성공");
+  		let paper = $("#paper").val();//주문내용을 읽기 
+  		//alert("paper"+paper+"여기");
+  		//textarea, input text 모두 디폴트가 빈문자열, 비교할때 null 혹은 undefine
+    	if(paper !=""){
+    		alert("주문내용 입력 성공");
+	    	$("#f_order").submit();//폼 전송이 일어난다. -ajax 기능없이 구현한부분	
+    	}else{
+    		alert("주문내용 입력 안함");
+    		 $("#paper").focus();//커서를 이동해 두어서 바로 입력받을 수 있도록 한다.
+    	}
+    }
+    //ajax 적용 함수 구간
+  	function getCustomerInfo(){
+    	//사용자가 입력한 전화번호를 담기
+  		let user_tel = $("#mem_tel").val();
+  		//console.log("사용자 전번 : "+user_tel);
+  		//fetch API
+    	$.ajax({//ajax함수- 여러가지 속성이 있음 : type(get or post), url, dataType, success, error
+  		  type:"get",
+  		  url: "jsonGetCustomerList",
+  		  dataType:"json",
+	          success:function(data){//data- 분석- {id:test} [{id:test}] {"id":"test"},.....유사품 주의할것.
+	        	  let result = JSON.stringify(data);
+	        	  //중략~
+	        	  }///////////////////end of if
+	        	  $("#mem_addr").text(temp);//html- 인터프리터를 받음
+	          },
+	          error:function(e){//e는 XMLHttpRequest- 비동기 통신 객체
+	        	  let x = e.responseXML;
+	        	  alert("fail ===> "+x)
+	          }
+  		});  	
+  	}//중략~
+	$("#btn_order").click(function(e){
+ 		e.preventDefault();
+ 		orderPizza();
+ 	});
+	
+```
+paper 주문지, 주문지의 주소번지를 가져옴
+data가 다양한 형태, api(stringify, parse, JsonObject, JsonArray)로 들어온다 
+jQuery를 왜쓰는가?
+preventDefault : 이벤트 실행을 막아줌
+
+
+
 # 21/06/23
 ### Android Studio
 + 고급개발자가 되려면 1.Lifecycle을 볼수잇는가 2.intercept를 할 수 잇는가 3. interface를 갈아 넣을수 잇는가
