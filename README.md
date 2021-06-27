@@ -1,3 +1,4 @@
+
 # 21/06/26
 ### Ajax
 + 로컬에 있는것을 참고할때 `compile fileTree(dir: '/src/main/webapp/WEB-INF/lib', includes: ['*.jar'])`
@@ -139,6 +140,8 @@ public class MemberDao {
 + git fetch project2
 + git merge --allow-unrelated-histories project2/main(브랜치 이름, 따로 안 만들었으면 main임)
 + git remote remove project2 해주면 합쳐진 Repositoriy의 커밋 이력까지 병합 완료
+
+
 # 21/06/24
 네트워크, 통신, 스레드, db연동, mybatis같은 외부 연계, 클라우드 사용시 예외처리(try catch)는 필수
 #### flush
@@ -156,6 +159,17 @@ public class MemberDao {
 + `android:padding="20dp"` : 테두리에 여백 주기
 + padding은 자체 컴포넌트(Component) 내부적으로 주는것, margin은 외적 컴포넌트 끼리 여백이나 간격을 줄때 쓰임
 + strings변수 : 열거형 연산자 
+### Ajax
+**로그인 관련 설명**  
++ ajax를쓸때 json, html, jsp 다 상관없음 
++ div태그로 Block 요소 단위로 관리하는게 좋다
++ $.ajax({}); 함수지만 내부클래스라 생각하자, {}에 구현부가 와야함, scope를 갖기때문에 이벤트처리,함수호출 등의 여러가지 기능을 담을 수 있다. syntex를 이루게됨 
++ url 처리 : 1. Controller -redirect,forward 등등 2.RestController - data set (json, xml, txt)
++ datatype - json,html 주의
++ json일때는 for문안에 tag를 다써야함 - 더럽고 귀찮음, xxx.do로 연결하면 forward로 연결 return "forward:xxx.jsp"
+
+
+
 # 21/06/23
 ### Android Studio
 + 고급개발자가 되려면 1.Lifecycle을 볼수잇는가 2.intercept를 할 수 잇는가 3. interface를 갈아 넣을수 잇는가
@@ -170,6 +184,7 @@ public class MemberDao {
 
 + 메인화면 오와열을 맞추려고 tablelayout 사용
 + AsyncTask : 스레드를 위한 동작 코드와 UI 접근 코드를 한꺼번에 구현할 수 있다
+
 ### Ajax
 **Spring Boot의 Gradle 방식으로 Hikari CP라는 커넥션 풀을 사용하고 Mybatis 연동하면서 프로시저 써야되고, 로그까지 출력하는 5가지 조립 과정**
 + build.gradle에 mvnrepository에서 Mybatis Spring Boot Starter와 커넥션 툴 HikariCP 등록
@@ -181,6 +196,8 @@ public class MemberDao {
 + 서버 기동시 url쪽의 suitable driver class 에러
   + 원인 : db쪽 연동하기 위해서 jdbc api를 활용해야 하는데, 이 부분 의존성 주입이 안되있어서 발생
   + 해결 : mvnrepository에서 Spring Boot Starter JDBC를 Gradle에 추가해줘서 해결
+
+
 # 21/06/22
 프론트를 하는이상 파일 확장자 때문에 단정지으면안됨 MINE타입을 항상고려해야한다  
 리액트 할때 fetch API  
