@@ -1,7 +1,8 @@
 # 21/06/28
-### Android
+### Android Studio
 * `<uses-permission android:name="android.permission.INTERNET" />` : 인터넷 사용에 대한 퍼미션 처리 부분
-* `android:usesCleartextTraffic="true"` http를 지원하지 않아서 이에 대한 옵션값, 이게 있어야 안드로이드를 통해서 http 페이지 확인 가능
+* `android:usesCleartextTraffic="true"` http를 지원하지 않아서 이에 대한 옵션값
+  * 이게 있어야 안드로이드를 통해서 http 페이지 확인 가능
 * WebView API : 사용하려면 반드시 http에 대한 옵션 설정이 추가되야함
 * 선형 레이아웃에서는 `android:orientation="vertical"`옵션 반드시 추가
   * vertical: 수직의(세로로 쌓인다), horizontal : 수평의(가로로 쌓임)
@@ -19,6 +20,29 @@
   * 컴포넌트 이름을 WebView로 바꿔줘야한다
   * 웹뷰에 접근을 해야하는데 단독화면이 아니라 액티비티에 포함된 홤녀이므로 View를 통해서 받은 후 접근해야한다
   * `wv_web.loadUrl("https://www.naver.com");` 이런식으로 홈페이지를 프래그먼트에 띄울 수 있다
+### Ajax
+검색자동완성기능 => Ajax
+
+#### 쿠키
++ 쿠키는 클라이언트 측에 저장된다. 타입은 text
++ 쿠키는 생성한 후 반드시 클라이언트쪽으로 내려야한다. `response.addCookie(주소번지);`
++ 쿠키는 삭제할 때도 반드시 인스턴스화 해야한다.
++ 서버에서 쿠키를 읽어 올때는 request 사용
++ 쿠키를 사용하는 경우 보안상 중요하지 않거나(장바구니,찜목록) 임시저장할때
++ 쿠키 생성 : `Cookie c1 = new Cookie("notebook", "gram");`
++ `c1.setMaxAge(30);` : 쿠키의 유효시간을 초 단위로 지정함. 음수 입력시 웹 브라우저를 닫을 때 쿠키가 자동삭제됨
++ `c1.setPath("/");` : 쿠키는 특이하게 경로를 지정할수있다. path경로가 다르면 접근할 수 없다
++ 쿠키 c1 삭제 하는법
+  + `Cookie c1 = new Cookie("notebook", "");` : 똑같은 쿠키를 만든 후 빈 문자열을 주고
+  + `c1.setMaxAge(0);` : 0을 주면 파기됨
+  + `response.addCookie(c1);` : 응답으로 반드시 내려야함
++ 부트스트랩이나 스크립트 기반의 솔루션 사용시 jquery에서 제공하는 쿠키 api가 더 편리하다              
+```
+Cookie cookies[] = request.getCookies();
+for(int i=0;i<cookies.length;i++){
+	out.print(cookies[i].getName()+". "+cookies[i].getValue());	
+}
+```
 
 # 21/06/26
 ### GitHub
@@ -46,16 +70,18 @@
 + 파라미터를 이용해서 사용자가 입력한 값을 화면없이도 get방식을 이용해 단위테스트 할 수 있다
 + 값 노출이 안 되야 할 때는 post방식으로 변경  
 
-**세션**
+#### 세션
 + 별도로 session을 선언 : HttpSession Session = req.getSession();
 + 직접 내용 담음, 여러 담기 가능(이름은 달라야함) : session.setAttribute("이름","값")
++ 가져올때는 session.getAttribute("이름")
 + 웹 컨테이너는(툼캣,j부트, 웹스피어와 같은 엔터프라이즈서버) 기본적으로 한 웹 브라우저마다 한 세션을 생성한다
 + 쿠키가 클라이언트 측의 데이터 보관소라면, 세션은 서버(Cache Memory)측의 데이터 보관소이다
 + 쿠키처럼 세션도 생성을 해야 정보를 저장할 수 있다
 + getId() :세션의 고유 아이디 확인
 + getCreationTime() : 세션 생성시간 확인
 + getLastaccessedTime() : 웹 브라우저가 마지막에 세션에 접속한 시간 확인
-+ invalidate():로그아웃 버튼이 눌렸을때 사용
++ session.invalidate() : 전체 삭제, 로그아웃 버튼이 눌렸을때 사용
++ session.removeAttribute("") : 부분 삭제
 + 안드로이드에서는 세션과 쿠키를 사용할 수 없다
 ```jsp
 <%
