@@ -1,4 +1,116 @@
+# 21/06/28
+### Android
+* `<uses-permission android:name="android.permission.INTERNET" />` : 인터넷 사용에 대한 퍼미션 처리 부분
+* `android:usesCleartextTraffic="true"` http를 지원하지 않아서 이에 대한 옵션값, 이게 있어야 안드로이드를 통해서 http 페이지 확인 가능
+* WebView API : 사용하려면 반드시 http에 대한 옵션 설정이 추가되야함
+* 선형 레이아웃에서는 `android:orientation="vertical"`옵션 반드시 추가
+  * vertical: 수직의(세로로 쌓인다), horizontal : 수평의(가로로 쌓임)
+* match_parent : 크기가 부모 사이즈 전체를 다 차지함
+* 하이브리드 앱에 필요한 부분
+  *  json활용을 위한 의존성 주입 Gson : `implementation 'com.google.code.gson:gson:2.8.2'`
+  *  http서비스를 백그라운드에서 지원해줄 의존성 주입 volley :`implementation 'com.android.volley:volley:1.2.0'`
+* 로그인 처리 성공하면 intent > 새로운 액티비티로 이동해야함 > 메인액티비티 호출
+* setOnClickListener : 이벤트를 듣는 인터페이스를 직접 내부 클래스로 처리
+* id와 pw를 사용자로 입력 받은 값으로 바꿔주려면 안드로이드는 toString을 입혀서 컨버전을 시켜줘야 담을 수 있음
+  * `final String id = et_id.getText().toString();`, `final String pw = et_pw.getText().toString();`
+* 메뉴에 들어갈 소스(아이템) 넣기
+  * res우클릭-New-Android Resource Directory 디렉토리 생성 후 우클릭-New-Menu Resource File
+* WebView로 처리하는 페이지
+  * 컴포넌트 이름을 WebView로 바꿔줘야한다
+  * 웹뷰에 접근을 해야하는데 단독화면이 아니라 액티비티에 포함된 홤녀이므로 View를 통해서 받은 후 접근해야한다
+  * `wv_web.loadUrl("https://www.naver.com");` 이런식으로 홈페이지를 프래그먼트에 띄울 수 있다
+
 # 21/06/26
+### GitHub
+**Git Repositoriy commit 유지하면서 병합하기**
++ 메인 레포 : project1, 합쳐질 레포 : project2
+
++ 합쳐질 레포 폴더 경로에서 
++ git remote -v로 url 주소 복사 : https://github.com/깃아이디/합쳐질레포이름.git 이런식으로 나옴
+
++ 메인 레포 폴더에 가서
++ git remote add project2 https://github.com/깃아이디/합쳐질레포이름.git 입력
++ git fetch project2
++ git merge --allow-unrelated-histories project2/main(브랜치 이름, 따로 안 만들었으면 main임)
++ git remote remove project2 해주면 합쳐진 Repositoriy의 커밋 이력까지 병합 완료
+
+# 21/06/25
+### Ajax
++ POJO 서블릿 의존 100%
+  + response가 있어야 페이지 이동 가능 res.sendRedirect + "a.jsp"
++ boot 
+  + retrun "redirect:a.jsp , "forward:a.jsp
++ jsp : Tomcat이(servlet.jar, jsp.jar) session을 내장 객체로 주입해준다. 인스턴스화 없이 바로 사용가능
+  + @RequestMapping 공통일때 사용
+  + @GetMapping, @PostMapping 구체적으로 메소드와 연계해서 처리(반복되는 코드 줄이고 일괄처리)
++ 파라미터를 이용해서 사용자가 입력한 값을 화면없이도 get방식을 이용해 단위테스트 할 수 있다
++ 값 노출이 안 되야 할 때는 post방식으로 변경  
+
+**세션**
++ 별도로 session을 선언 : HttpSession Session = req.getSession();
++ 직접 내용 담음, 여러 담기 가능(이름은 달라야함) : session.setAttribute("이름","값")
++ 웹 컨테이너는(툼캣,j부트, 웹스피어와 같은 엔터프라이즈서버) 기본적으로 한 웹 브라우저마다 한 세션을 생성한다
++ 쿠키가 클라이언트 측의 데이터 보관소라면, 세션은 서버(Cache Memory)측의 데이터 보관소이다
++ 쿠키처럼 세션도 생성을 해야 정보를 저장할 수 있다
++ getId() :세션의 고유 아이디 확인
++ getCreationTime() : 세션 생성시간 확인
++ getLastaccessedTime() : 웹 브라우저가 마지막에 세션에 접속한 시간 확인
++ invalidate():로그아웃 버튼이 눌렸을때 사용
++ 안드로이드에서는 세션과 쿠키를 사용할 수 없다
+```jsp
+<%
+	String s_name = null;//변수선언
+	s_name = (String)session.getAttribute("s_name");//세션에서 내장객체 가져옴
+%>
+        <label for="msg">
+          	<font color="white"><%=s_name %>님 환영합니다.</font>
+        </label>
+```
+ ↳ 세션에서 가져온 값 적용
+
+# 21/06/24
+네트워크, 통신, 스레드, db연동, mybatis같은 외부 연계, 클라우드 사용시 예외처리(try catch)는 필수
+#### flush
++ 지정한 jsp페이지를 실행하기 전에 출력 버프를 플러시할지 여부를 결정한다. true면 플러시하고 flase면 안함. 기본값은 false
++ 출력버퍼를 플러시한다 의미 : jsp:include 액션태그가 실행될 때 출력버퍼에 저장된 기존 코드들을 플러시하고 서브 페이지로 실행흐름이 이동한다는 말이다.
++ 출력버퍼를 플러시하면 응답 상태 코드와 HTTP 응답헤더가 웹 브라우저에 함께 전송된다.
++ 응답상태코드와 HTTP 응답헤더가 웹브라우저에 전송된다면(flush="true"상태) 새로 헤더정보를 추가하더라도 웹 브라우저는 받을 수 없게 된다.
+  - 따라서 일반적으로 flush 속성을 false 로 지정하는 것이 좋다
+  - 왜냐하면 flush가 true면 출력버퍼는 비워지고 모든 헤더정보를 웹브라우저에 전송하게 되는데 나중에 헤더정보를 추가하게 되면 반영될 수가 없다
++ include에 필요하다( <jsp:include> 액션 태그)
+### Android Studio
++ 안드로이드쪽에서 인터넷에 대한 permission을 열어줘야함
+  + AndroidManifest.xml에 `<uses-permission android:name="android.permission.INTERNET"/>` 추가
+  + 응답을 받아오기 위해 application 밑에 `android:usesCleartextTraffic="true"`도 추가
++ `android:padding="20dp"` : 테두리에 여백 주기
++ padding은 자체 컴포넌트(Component) 내부적으로 주는것, margin은 외적 컴포넌트 끼리 여백이나 간격을 줄때 쓰임
++ strings변수 : 열거형 연산자 
+### Ajax
+**로그인 관련 설명**  
++ ajax를쓸때 json, html, jsp 다 상관없음 
++ div태그로 Block 요소 단위로 관리하는게 좋다
++ $.ajax({}); 함수지만 내부클래스라 생각하자, {}에 구현부가 와야함, scope를 갖기때문에 이벤트처리,함수호출 등의 여러가지 기능을 담을 수 있다. syntex를 이루게됨 
++ url 처리 : 1. Controller -redirect,forward 등등 2.RestController - data set (json, xml, txt)
++ datatype - json,html 주의
++ json일때는 for문안에 tag를 다써야함 - 더럽고 귀찮음, xxx.do로 연결하면 forward로 연결 return "forward:xxx.jsp"
+
+
+
+# 21/06/23
+### Android Studio
++ 고급개발자가 되려면 1.Lifecycle을 볼수잇는가 2.intercept를 할 수 잇는가 3. interface를 갈아 넣을수 잇는가
++ getView()는 Adapter 가 가지고 있는 data 를 어떻게 보여줄 것인가를 정의하는데 쓰인다
+  + https://ismydream.tistory.com/150 상세 설명인데 아직은 잘 모르겠음
+
+**Workout2021_Step1 구조**
+![0623Android](./img/0623Android.png)
++  ListFragment : Adapter기능,목록스타일지원css
++ 이벤트 처리 코드(그림 이벤트감지)
+  * 1.이벤트 대상이 지원해주는 리스너찾기 2.implements하기 3.이벤트 소스 + 이벤트 처리 Handler연결
+
++ 메인화면 오와열을 맞추려고 tablelayout 사용
++ AsyncTask : 스레드를 위한 동작 코드와 UI 접근 코드를 한꺼번에 구현할 수 있다
+
 ### Ajax
 + 로컬에 있는것을 참고할때 `compile fileTree(dir: '/src/main/webapp/WEB-INF/lib', includes: ['*.jar'])`
   * 자동으로 연결이 안되서 로컬로 돌려서 프로젝트를 바라보는 jar를 땡겨올 수 있다
@@ -125,98 +237,8 @@ public class MemberDao {
 + paper 주문지, 주문지의 주소번지를 가져옴
 + data가 다양한 형태, api(stringify, parse, JsonObject, JsonArray)로 들어온다 
 + jQuery를 왜쓰는가?
-+ preventDefault : 이벤트 실행을 막아줌
-### GitHub
-**Git Repositoriy commit 유지하면서 병합하기**
-+ 메인 레포 : project1, 합쳐질 레포 : project2
++ preventDefault : 이벤트 실행을 막아줌  
 
-+ 합쳐질 레포 폴더 경로에서 
-+ git remote -v로 url 주소 복사 : https://github.com/깃아이디/합쳐질레포이름.git 이런식으로 나옴
-
-+ 메인 레포 폴더에 가서
-+ git remote add project2 https://github.com/깃아이디/합쳐질레포이름.git 입력
-+ git fetch project2
-+ git merge --allow-unrelated-histories project2/main(브랜치 이름, 따로 안 만들었으면 main임)
-+ git remote remove project2 해주면 합쳐진 Repositoriy의 커밋 이력까지 병합 완료
-
-# 21/06/25
-### Ajax
-+ POJO 서블릿 의존 100%
-  + response가 있어야 페이지 이동 가능 res.sendRedirect + "a.jsp"
-+ boot 
-  + retrun "redirect:a.jsp , "forward:a.jsp
-+ jsp : Tomcat이(servlet.jar, jsp.jar) session을 내장 객체로 주입해준다. 인스턴스화 없이 바로 사용가능
-  + @RequestMapping 공통일때 사용
-  + @GetMapping, @PostMapping 구체적으로 메소드와 연계해서 처리(반복되는 코드 줄이고 일괄처리)
-+ 파라미터를 이용해서 사용자가 입력한 값을 화면없이도 get방식을 이용해 단위테스트 할 수 있다
-+ 값 노출이 안 되야 할 때는 post방식으로 변경  
-
-**세션**
-+ 별도로 session을 선언 : HttpSession Session = req.getSession();
-+ 직접 내용 담음, 여러 담기 가능(이름은 달라야함) : session.setAttribute("이름","값")
-+ 웹 컨테이너는(툼캣,j부트, 웹스피어와 같은 엔터프라이즈서버) 기본적으로 한 웹 브라우저마다 한 세션을 생성한다
-+ 쿠키가 클라이언트 측의 데이터 보관소라면, 세션은 서버(Cache Memory)측의 데이터 보관소이다
-+ 쿠키처럼 세션도 생성을 해야 정보를 저장할 수 있다
-+ getId() :세션의 고유 아이디 확인
-+ getCreationTime() : 세션 생성시간 확인
-+ getLastaccessedTime() : 웹 브라우저가 마지막에 세션에 접속한 시간 확인
-+ invalidate():로그아웃 버튼이 눌렸을때 사용
-+ 안드로이드에서는 세션과 쿠키를 사용할 수 없다
-```jsp
-<%
-	String s_name = null;//변수선언
-	s_name = (String)session.getAttribute("s_name");//세션에서 내장객체 가져옴
-%>
-        <label for="msg">
-          	<font color="white"><%=s_name %>님 환영합니다.</font>
-        </label>
-```
- ↳ 세션에서 가져온 값 적용
-
-# 21/06/24
-네트워크, 통신, 스레드, db연동, mybatis같은 외부 연계, 클라우드 사용시 예외처리(try catch)는 필수
-#### flush
-+ 지정한 jsp페이지를 실행하기 전에 출력 버프를 플러시할지 여부를 결정한다. true면 플러시하고 flase면 안함. 기본값은 false
-+ 출력버퍼를 플러시한다 의미 : jsp:include 액션태그가 실행될 때 출력버퍼에 저장된 기존 코드들을 플러시하고 서브 페이지로 실행흐름이 이동한다는 말이다.
-+ 출력버퍼를 플러시하면 응답 상태 코드와 HTTP 응답헤더가 웹 브라우저에 함께 전송된다.
-+ 응답상태코드와 HTTP 응답헤더가 웹브라우저에 전송된다면(flush="true"상태) 새로 헤더정보를 추가하더라도 웹 브라우저는 받을 수 없게 된다.
-  - 따라서 일반적으로 flush 속성을 false 로 지정하는 것이 좋다
-  - 왜냐하면 flush가 true면 출력버퍼는 비워지고 모든 헤더정보를 웹브라우저에 전송하게 되는데 나중에 헤더정보를 추가하게 되면 반영될 수가 없다
-+ include에 필요하다( <jsp:include> 액션 태그)
-### Android Studio
-+ 안드로이드쪽에서 인터넷에 대한 permission을 열어줘야함
-  + AndroidManifest.xml에 `<uses-permission android:name="android.permission.INTERNET"/>` 추가
-  + 응답을 받아오기 위해 application 밑에 `android:usesCleartextTraffic="true"`도 추가
-+ `android:padding="20dp"` : 테두리에 여백 주기
-+ padding은 자체 컴포넌트(Component) 내부적으로 주는것, margin은 외적 컴포넌트 끼리 여백이나 간격을 줄때 쓰임
-+ strings변수 : 열거형 연산자 
-### Ajax
-**로그인 관련 설명**  
-+ ajax를쓸때 json, html, jsp 다 상관없음 
-+ div태그로 Block 요소 단위로 관리하는게 좋다
-+ $.ajax({}); 함수지만 내부클래스라 생각하자, {}에 구현부가 와야함, scope를 갖기때문에 이벤트처리,함수호출 등의 여러가지 기능을 담을 수 있다. syntex를 이루게됨 
-+ url 처리 : 1. Controller -redirect,forward 등등 2.RestController - data set (json, xml, txt)
-+ datatype - json,html 주의
-+ json일때는 for문안에 tag를 다써야함 - 더럽고 귀찮음, xxx.do로 연결하면 forward로 연결 return "forward:xxx.jsp"
-
-
-
-# 21/06/23
-### Android Studio
-+ 고급개발자가 되려면 1.Lifecycle을 볼수잇는가 2.intercept를 할 수 잇는가 3. interface를 갈아 넣을수 잇는가
-+ getView()는 Adapter 가 가지고 있는 data 를 어떻게 보여줄 것인가를 정의하는데 쓰인다
-  + https://ismydream.tistory.com/150 상세 설명인데 아직은 잘 모르겠음
-
-**Workout2021_Step1 구조**
-![0623Android](./img/0623Android.png)
-+  ListFragment : Adapter기능,목록스타일지원css
-+ 이벤트 처리 코드(그림 이벤트감지)
-  * 1.이벤트 대상이 지원해주는 리스너찾기 2.implements하기 3.이벤트 소스 + 이벤트 처리 Handler연결
-
-+ 메인화면 오와열을 맞추려고 tablelayout 사용
-+ AsyncTask : 스레드를 위한 동작 코드와 UI 접근 코드를 한꺼번에 구현할 수 있다
-
-### Ajax
 **Spring Boot의 Gradle 방식으로 Hikari CP라는 커넥션 풀을 사용하고 Mybatis 연동하면서 프로시저 써야되고, 로그까지 출력하는 5가지 조립 과정**
 + build.gradle에 mvnrepository에서 Mybatis Spring Boot Starter와 커넥션 툴 HikariCP 등록
   + 추가 후 Gragld-Refresh Gradle Project 해줄것
