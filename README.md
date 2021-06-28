@@ -1,10 +1,8 @@
-
 # 21/06/26
 ### Ajax
 + 로컬에 있는것을 참고할때 `compile fileTree(dir: '/src/main/webapp/WEB-INF/lib', includes: ['*.jar'])`
   * 자동으로 연결이 안되서 로컬로 돌려서 프로젝트를 바라보는 jar를 땡겨올 수 있다
   * 그래이들 기반의 스프링 프레임워크 환경설정 프로시저 테스트  
-
 
 **DatabaseConfiguration.java**
 ```java
@@ -141,6 +139,39 @@ public class MemberDao {
 + git merge --allow-unrelated-histories project2/main(브랜치 이름, 따로 안 만들었으면 main임)
 + git remote remove project2 해주면 합쳐진 Repositoriy의 커밋 이력까지 병합 완료
 
+# 21/06/25
+### Ajax
++ POJO 서블릿 의존 100%
+  + response가 있어야 페이지 이동 가능 res.sendRedirect + "a.jsp"
++ boot 
+  + retrun "redirect:a.jsp , "forward:a.jsp
++ jsp : Tomcat이(servlet.jar, jsp.jar) session을 내장 객체로 주입해준다. 인스턴스화 없이 바로 사용가능
+  + @RequestMapping 공통일때 사용
+  + @GetMapping, @PostMapping 구체적으로 메소드와 연계해서 처리(반복되는 코드 줄이고 일괄처리)
++ 파라미터를 이용해서 사용자가 입력한 값을 화면없이도 get방식을 이용해 단위테스트 할 수 있다
++ 값 노출이 안 되야 할 때는 post방식으로 변경  
+
+**세션**
++ 별도로 session을 선언 : HttpSession Session = req.getSession();
++ 직접 내용 담음, 여러 담기 가능(이름은 달라야함) : session.setAttribute("이름","값")
++ 웹 컨테이너는(툼캣,j부트, 웹스피어와 같은 엔터프라이즈서버) 기본적으로 한 웹 브라우저마다 한 세션을 생성한다
++ 쿠키가 클라이언트 측의 데이터 보관소라면, 세션은 서버(Cache Memory)측의 데이터 보관소이다
++ 쿠키처럼 세션도 생성을 해야 정보를 저장할 수 있다
++ getId() :세션의 고유 아이디 확인
++ getCreationTime() : 세션 생성시간 확인
++ getLastaccessedTime() : 웹 브라우저가 마지막에 세션에 접속한 시간 확인
++ invalidate():로그아웃 버튼이 눌렸을때 사용
++ 안드로이드에서는 세션과 쿠키를 사용할 수 없다
+```jsp
+<%
+	String s_name = null;//변수선언
+	s_name = (String)session.getAttribute("s_name");//세션에서 내장객체 가져옴
+%>
+        <label for="msg">
+          	<font color="white"><%=s_name %>님 환영합니다.</font>
+        </label>
+```
+ ↳ 세션에서 가져온 값 적용
 
 # 21/06/24
 네트워크, 통신, 스레드, db연동, mybatis같은 외부 연계, 클라우드 사용시 예외처리(try catch)는 필수
