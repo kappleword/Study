@@ -21,8 +21,19 @@
   * 웹뷰에 접근을 해야하는데 단독화면이 아니라 액티비티에 포함된 홤녀이므로 View를 통해서 받은 후 접근해야한다
   * `wv_web.loadUrl("https://www.naver.com");` 이런식으로 홈페이지를 프래그먼트에 띄울 수 있다
 ### Ajax
-검색자동완성기능 => Ajax
+* 검색자동완성기능 => Ajax
+* `url:"./cookieDelete.jsp?cname=cname&timestamp="+new Date().getTime(),` : 밀리세크단위로 값을 찍어서 인터셉트 안당함
+#### 트러블 슈팅(Ajax)
+![0628ajax-1](./img/0628ajax-1.PNG)
++ 문제 : 로그인 버튼 클릭시 에러발생, 화면에 구글지도가 안뜸
+  + 원인 : ajax를 써서 페이지 이동없이 결과만 나와야하는데 페이지가 이동된다
+  + 해결 : `<a id="btn_login" href="login()" ~생략~>`을 `<a id="btn_login" href="javascript:login()"~~>`로 바꿔서 해결
+  + 지도 안나오는 부분은 reay, documet 오타를 ready, document로 바꿔주니 정상 작동함
 
+![0628ajax-2](./img/0628ajax-2.PNG)
++ 문제 : 위에 문제를 해결하니 새로운 에러 발생
+  + 원인 : 입력한 id와 pw 값을 제대로 못 가져간다. 콘솔창 확인하니 `value : {mem_idtest1=, mem_pw123=}` 이런식으로 이상하게 값을 가져감
+  + 해결 : `let param = "mem_id"+u_id+"&mem_pw"+u_pw;`을 `let param = "mem_id="+u_id+"&mem_pw="+u_pw;`로 바꿔서 해결
 #### 쿠키
 + 쿠키는 클라이언트 측에 저장된다. 타입은 text
 + 쿠키는 생성한 후 반드시 클라이언트쪽으로 내려야한다. `response.addCookie(주소번지);`
@@ -37,13 +48,13 @@
   + `c1.setMaxAge(0);` : 0을 주면 파기됨
   + `response.addCookie(c1);` : 응답으로 반드시 내려야함
 + 부트스트랩이나 스크립트 기반의 솔루션 사용시 jquery에서 제공하는 쿠키 api가 더 편리하다              
-```
+```java
 Cookie cookies[] = request.getCookies();
 for(int i=0;i<cookies.length;i++){
 	out.print(cookies[i].getName()+". "+cookies[i].getValue());	
 }
 ```
-
+ ↳ 쿠키 읽어오는 코드 
 # 21/06/26
 ### GitHub
 **Git Repositoriy commit 유지하면서 병합하기**
