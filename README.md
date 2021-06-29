@@ -1,4 +1,6 @@
 # 21/06/29
+### Ajax
+
 ### Android Studio
 + 툴바에서 자식 노드가 없으면 나눠쓰기x (/>로 끝내란 뜻)
 + **툴바를 추가하는 방법**
@@ -16,9 +18,14 @@ setSupportActionBar(toolbar);
 2. 메뉴 리소스 파일에 액션 정의하기
 3. 앱바에 메뉴 리소스를 추가하도록 액티비티에 지시하기 onCreateOptionsMenu()
 4. 클릭했을 때 어떤 액션을 수행할지 코드로 정의하기 onOptionItemSelected()
-
 + orderIncategory : 앱바가 여러 액션을 포함할 경우 액션이 나타나는 순번
 + 라이프사이클 콜백함수 사용시 super 붙이기
++ 프래그먼트 콜백
+  + onAttach() : 프래그먼트가 액티비티에 연결되었을 때
+  + onCreate() : 프래그먼트 초기화
+  + onCreateView : 레이아웃 inflater로 자신의 뷰를 만든다 (xml이용)
+  + onActivityCreated : onCreate 메소드가 완료되면 호출
+
 # 21/06/28
 ### Android Studio
 * `<uses-permission android:name="android.permission.INTERNET" />` : 인터넷 사용에 대한 퍼미션 처리 부분
@@ -39,7 +46,7 @@ setSupportActionBar(toolbar);
   * res우클릭-New-Android Resource Directory 디렉토리 생성 후 우클릭-New-Menu Resource File
 * WebView로 처리하는 페이지
   * 컴포넌트 이름을 WebView로 바꿔줘야한다
-  * 웹뷰에 접근을 해야하는데 단독화면이 아니라 액티비티에 포함된 홤녀이므로 View를 통해서 받은 후 접근해야한다
+  * 웹뷰에 접근을 해야하는데 단독화면이 아니라 액티비티에 포함된 화면이므로 View를 통해서 받은 후 접근해야한다
   * `wv_web.loadUrl("https://www.naver.com");` 이런식으로 홈페이지를 프래그먼트에 띄울 수 있다
 ### Ajax
 * 검색자동완성기능 => Ajax
