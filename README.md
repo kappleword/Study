@@ -1,7 +1,64 @@
 # 21/06/29
 ### Ajax
++ ajax는 페이지 갱신x >> 세션과 쿠키의 정보를 새로 가져오는데 함정 생김 >> 그래서 include로 가져와야한다
+  + @include : 전체적인 갱신, 소스가 하나로 합쳐진다 = java가 새로 만들어진다 >> 컴파일이 일어난다 >> response가 새로 만들어지고 request가 새로 할당된다 
+  + jsp:include : 모체가 되는 jsp가 있음, jsp:include 수정 후 모체 jsp도 수정해줘야 적용된다
++ 꼭지점 부분부터 확대 이미지 시작되게 구현 << mouseover(xxx)물리적인 정보를 알려고 사용
++ mouseout시 지우기 기능
++ parameter 활용을 자유자재로 하자 (DI, 게으른 인스턴스화)
+  + return 타입으로만 처리하기 보다는 parameter로 처리를 해보자
++ **@Controller vs @RestController**
+  + @Controller : jsp와 연결 - redirect, forward
+    + 리턴 타입 : string, void
+  + @RestController : ajax, react, nexacro들이 사용
+    + Data를 받아온다 > 동적이다
+    + 리턴 타입 : string, void(올 수는 있지만 쓸 이유가 없다. void 쓸거면 @Controller써라)
+    + forward 필요없음, String >> json, xml  
+
+pictureMain.html
+```javascript
+   var xhrObject = null;//전역변수 선언
+   var el;//이벤트가 발생한(td태그) 객체정보를 담기
+   function createRequest(){
+       try{
+           xhrObject = new XMLHttpRequest();//비동기통신 객체 생성
+       }catch(trymicrosoft){
+           xhrObject = null;
+       }
+       if(xhrObject==null){
+           alert("비동기 통신객체 생성 실패!!!");
+       }
+    } 
+    //서버로 요청에 대한 처리를 전송함 - 비동기로 처리하기로 함.
+	function startMethod(td){//td - tag, element, node  ==> Object
+    	//전역변수 el 초기화(td의 정보를 el갖게됨.)
+			el = td;
+		//그림 제목에 마우스를 오버 했을 때 td태그에 정의한 아이디값을 가져오는 코드
+		createRequest();//비동기통신 객체 생성 메소드 호출 - 전역변수로 초기화됨
+		//콜백메소드 이름 선언
+		xhrObject.onreadystatechange = popup_process;
+		//옵션 추가
+		//1)전송방식 - GET[query string,링크,제약,노출]|POST
+		//2)목적지 - 요청을 누가처리하지? - XXX.jsp(오라클통신,자바코드활용,데이터)
+		//3)옵션 - true:비동기처리, false:동기처리
+		var url="./pictureInfo.jsp?p_no="+td.id;
+		xhrObject.open("GET",url,true);
+		//전송
+		xhrObject.send(null);
+	}
+```
++ xhrObject : XMLHttpRequset를 담는 변수, jQuery 사용시 생략 가능(function createRequest도)
++ td : 위치정보를 얻어오기 위해 사용, 오브젝트 이므로 this로 받아야함
++ createRequest : XMLHttpRequest 생성
++ onreadystatechange : 상태가 0→1→2→3→4
+  + 처음 시작이 0, 1번 부터 시작, 2→3 넘어갈때 header는 결정되있고 body만 바뀜, 3은 다운로드 중, 4는 다운로드 완료
+  + jQuery시 success:function(data){}쓰면 되서 필요없어짐
++ popup_process : 콜백 메소드
+`error:function(e){}` : 여기서 e는 비동기 통신 객체, XMLHttpRequest임
 
 ### Android Studio
+액티비티에서 프래그먼트 태그 사용 : 정적  
+xml 레이아웃을 가지고 프래그먼트 매너지와 프래그먼트 트렌젝션을 사용 : 정적
 + 툴바에서 자식 노드가 없으면 나눠쓰기x (/>로 끝내란 뜻)
 + **툴바를 추가하는 방법**
 1. androidx패키지에 toolbar추가 (지원라이브러리 : `implementation 'androidx.appcompat:appcompat:1.3.0'`)
@@ -16,8 +73,8 @@ setSupportActionBar(toolbar);
 + **액션을 앱바에 추가하는 방법**
 1. 액션의 아이콘과 텍스트로 사용할 리소스를 추가한다
 2. 메뉴 리소스 파일에 액션 정의하기
-3. 앱바에 메뉴 리소스를 추가하도록 액티비티에 지시하기 onCreateOptionsMenu()
-4. 클릭했을 때 어떤 액션을 수행할지 코드로 정의하기 onOptionItemSelected()
+3. 앱바에 메뉴 리소스를 추가하도록 액티비티에 지시하기 : onCreateOptionsMenu()
+4. 클릭했을 때 어떤 액션을 수행할지 코드로 정의하기 : onOptionItemSelected()
 + orderIncategory : 앱바가 여러 액션을 포함할 경우 액션이 나타나는 순번
 + 라이프사이클 콜백함수 사용시 super 붙이기
 + 프래그먼트 콜백
