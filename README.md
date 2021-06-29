@@ -1,3 +1,24 @@
+# 21/06/29
+### Android Studio
++ 툴바에서 자식 노드가 없으면 나눠쓰기x (/>로 끝내란 뜻)
++ **툴바를 추가하는 방법**
+1. androidx패키지에 toolbar추가 (지원라이브러리 : `implementation 'androidx.appcompat:appcompat:1.3.0'`)
+2. 액티비티가 AppCompatActivity를 상속받음 `public class MainActivity extends AppCompatActivity`
+3. 기본 앱바를 제거(thems.xml에 있는) `<style name="Theme.ActionBar80" parent="Theme.AppCompat.Light.NoActionBar">`
+4. 툴바를 레이아웃에 추가 : toolbar_main.xml 추가
+5. 툴바를 액티비티의 앱바로 사용하도록 갱신 처리 ↓
+```java
+Toolbar toolbar = findViewById(R.id.toolbar);
+setSupportActionBar(toolbar);
+```
++ **액션을 앱바에 추가하는 방법**
+1. 액션의 아이콘과 텍스트로 사용할 리소스를 추가한다
+2. 메뉴 리소스 파일에 액션 정의하기
+3. 앱바에 메뉴 리소스를 추가하도록 액티비티에 지시하기 onCreateOptionsMenu()
+4. 클릭했을 때 어떤 액션을 수행할지 코드로 정의하기 onOptionItemSelected()
+
++ orderIncategory : 앱바가 여러 액션을 포함할 경우 액션이 나타나는 순번
++ 라이프사이클 콜백함수 사용시 super 붙이기
 # 21/06/28
 ### Android Studio
 * `<uses-permission android:name="android.permission.INTERNET" />` : 인터넷 사용에 대한 퍼미션 처리 부분
