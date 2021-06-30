@@ -1,3 +1,25 @@
+# 21/06/30
+### Android Studio
++ AndroidManifest.xml-manifest 안에`<uses-permission android:name="android.permission.INTERNET" />` 추가
++ AndroidManifest.xml-manifest-application 안에`android:usesCleartextTraffic="true"` 추가
++ Logcat info로 설정
++ 라이프사이클: https://developer.android.com/guide/components/activities/activity-lifecycle#java
++ 프래그먼트 관리 : https://developer.android.com/guide/fragments/fragmentmanager#java
+```java
+public void resList(View v){
+        Log.i(this.getClass().getName(),"resList"+v);
+        Intent intent = new Intent(this, ResListActivity.class);
+        startActivity(intent);
+    }
+```
++ ↳ 다른 액티비티로 화면 이동 코드
+
+액티비티 코드가 해야 할 일
+1. 드로워 토글 추가하기
+2. 클릭에 응답하도록 드로워 구현하기
+3. 사용자가 Back버튼을 클릭했을때 드로워 닫기
+
+
 # 21/06/29
 ### Ajax
 + ajax는 페이지 갱신x >> 세션과 쿠키의 정보를 새로 가져오는데 함정 생김 >> 그래서 include로 가져와야한다
@@ -61,11 +83,11 @@ pictureMain.html
 xml 레이아웃을 가지고 프래그먼트 매너지와 프래그먼트 트렌젝션을 사용 : 정적
 + 툴바에서 자식 노드가 없으면 나눠쓰기x (/>로 끝내란 뜻)
 + **툴바를 추가하는 방법**
-1. androidx패키지에 toolbar추가 (지원라이브러리 : `implementation 'androidx.appcompat:appcompat:1.3.0'`)
-2. 액티비티가 AppCompatActivity를 상속받음 `public class MainActivity extends AppCompatActivity`
+1. build.gradle의 dependencies에 androidx패키지 toolbar추가 (지원라이브러리 : `implementation 'androidx.appcompat:appcompat:1.3.0'`)
+2. Main액티비티가 AppCompatActivity를 상속받음 `public class MainActivity extends AppCompatActivity`
 3. 기본 앱바를 제거(thems.xml에 있는) `<style name="Theme.ActionBar80" parent="Theme.AppCompat.Light.NoActionBar">`
 4. 툴바를 레이아웃에 추가 : toolbar_main.xml 추가
-5. 툴바를 액티비티의 앱바로 사용하도록 갱신 처리 ↓
+5. MainActivity onCreate메소드에 툴바를 액티비티의 앱바로 사용하도록 갱신 처리 ↓
 ```java
 Toolbar toolbar = findViewById(R.id.toolbar);
 setSupportActionBar(toolbar);
