@@ -1,3 +1,15 @@
+# 21/07/01
+### Android Studio
+부모액티비티 설정 : `<activity android:name=".HelpActivity" android:parentActivityName=".MainActivity"/>`
+
+
+
+
+
+
+
+
+
 # 21/06/30
 ### Android Studio
 + AndroidManifest.xml-manifest 안에`<uses-permission android:name="android.permission.INTERNET" />` 추가
