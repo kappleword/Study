@@ -1,11 +1,15 @@
+# 21/07/03
+wrap content
+match content
 # 21/07/01
 ### Android Studio
 부모액티비티 설정 : `<activity android:name=".HelpActivity" android:parentActivityName=".MainActivity"/>`
 
 
-
-
-
+#### 트러블 슈팅(Android Studio)
+![0701](./img/0101.PNG)
++ 문제 : 사진이 안나옴
++ 해결 : 위에 textview의 width, height 속성을 match_parent로 줘서 안나왔던것 wrap_content로 바꿔서 해결
 
 
 
