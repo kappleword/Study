@@ -1,18 +1,25 @@
 # 21/07/03
-wrap content
-match content
+DataGrip 툴을 써서 테이블에 유의미한 테이터를 넣는 작업을 했는데 생각보다 오래걸린다
+
+### Android Studio
+![wrap&match](./img/wrap&match.PNG)
++ match_parent
+  + 부모가 가지는 길이를 모두 채울 때 사용한다
+  + 해당 레이아웃을 취하는 컨테이너의 길이를 모두 채우는 것 
++ wrap_content
+  + 해당 뷰가 그려질 수 있게 필요한 길이만 사용한다
+  + 절대적인 값도 넣을 수 있는데, 10px, 10dp, 10sp 처럼 수치와 단위를 써서 직접 길이 값을 지정하면 됨
+
 # 21/07/01
 ### Android Studio
 부모액티비티 설정 : `<activity android:name=".HelpActivity" android:parentActivityName=".MainActivity"/>`
 
 
 #### 트러블 슈팅(Android Studio)
-![0701](./img/0101.PNG)
-+ 문제 : 사진이 안나옴
-+ 해결 : 위에 textview의 width, height 속성을 match_parent로 줘서 안나왔던것 wrap_content로 바꿔서 해결
-
-
-
+![0701_tergym](./img/0701_tergym.png)
++ 문제 : 이미지를 imageview로 추가했는데 화면에 안나옴
++ 원인 : 위에 textview의 height 속성을 match_parent로 줘서 화면을 다 차지했던 것
++ 해결 : `android:layout_height="wrap_content"`로 바꿔서 해결
 
 # 21/06/30
 ### Android Studio
