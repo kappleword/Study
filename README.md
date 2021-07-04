@@ -12,7 +12,8 @@ DataGrip 툴을 써서 테이블에 유의미한 테이터를 넣는 작업을 �
 
 # 21/07/01
 ### Android Studio
-부모액티비티 설정 : `<activity android:name=".HelpActivity" android:parentActivityName=".MainActivity"/>`
++ 부모액티비티 설정 : `<activity android:name=".HelpActivity" android:parentActivityName=".MainActivity"/>`
++ 디바이스들의 화면 사이즈가 조금씩 다름 > 이런점을 프래그먼트로 처리해야 한다
 
 
 #### 트러블 슈팅(Android Studio)
