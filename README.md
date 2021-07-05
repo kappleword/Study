@@ -1,3 +1,11 @@
+# 21/07/05
+### Android Studio
+* jcenter지원이 중단되어서 build.gradele(Project)-allprojects-jcenter 행 삭제해야 한다(manven이 역할 대신 수행)
+* Launcher Activity : 메인 액티비티로 쓰겠다, Generate ad Layout File : layout에 xml파일 같이 생성
+* 디버거모드 : Run-Attach Debugger to Android Process(톱니바퀴 모양)
+* ListFagment : layout 필요없음, Dataset >> Adapter
+* AndroidX 정보 : https://developer.android.com/jetpack/androidx?hl=ko
+
 # 21/07/03
 DataGrip 툴을 써서 테이블에 유의미한 테이터를 넣는 작업을 했는데 생각보다 오래걸린다
 
