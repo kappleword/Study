@@ -1,11 +1,24 @@
 # 21/07/05
+json형식, 자바에서 배운 리스트나 맵, 스크립트에서 스프링디파인, 파스, 파서함수 등을 써서 하나씩 꺼낼줄 알고 배열로 컨버전, 자료구조로 컨버전을 자유롭게
 ### Android Studio
 * jcenter지원이 중단되어서 build.gradele(Project)-allprojects-jcenter 행 삭제해야 한다(manven이 역할 대신 수행)
 * Launcher Activity : 메인 액티비티로 쓰겠다, Generate ad Layout File : layout에 xml파일 같이 생성
 * 디버거모드 : Run-Attach Debugger to Android Process(톱니바퀴 모양)
-* ListFagment : layout 필요없음, Dataset >> Adapter
+* ListFagment : layout 필요없음, Dataset이 필요(json, Room, workout.java 같이 직접가져오는 소스 설계로 대체 가능) >> Adapter로 처리(매핑)
+* List 클릭 시 이벤트 감지를 itemClicked(int id필요:순서역할) 이벤트 핸들러 메소드로 처리가능
+```java
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        this.listener = (Listener)context;
+    }
+```
+* ↳ onAttach 함수로 context를 초기화하고 this.listener에 담을 수 있음
 * AndroidX 정보 : https://developer.android.com/jetpack/androidx?hl=ko
-
+* drawable-New-Vector Asset : 안드로이드에서 제공되는 이미지(프로그램관련) 사용 가능
+* 코틀린 문법 파악
+  * 생성자, 인터페이스, 추상클래스 구조를 알아야한다
+  * 이벤트 처리 방법 내부클래스, 익명클래스, 람다식 3가지도 알아야함
 # 21/07/03
 DataGrip 툴을 써서 테이블에 유의미한 테이터를 넣는 작업을 했는데 생각보다 오래걸린다
 
