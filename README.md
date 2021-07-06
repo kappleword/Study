@@ -1,3 +1,18 @@
+# 21/07/06
+### Android Studio
+앱바레이아웃 소개
+리니어 레이아웃 안에 앱바레이아웃, 툴바, (탭레이아웃, 뷰페이저) 사용 예정
+페이지 구성 액티비티 1장 MainActivity
+HomeFragment, ListFragment 사용페이지 : (PizzaFragment, PastaFragment, StoreFragment)
+findViewById : xml에 있는걸 불러온다
+글자크기는 보통 sp를 사용한다
+### Ajax
+jsonObject{" "}
+
+
+
+
+
 # 21/07/05
 json형식, 자바에서 배운 리스트나 맵, 스크립트에서 스프링디파인, 파스, 파서함수 등을 써서 하나씩 꺼낼줄 알고 배열로 컨버전, 자료구조로 컨버전을 자유롭게
 ### Android Studio
