@@ -1,5 +1,14 @@
 # 21/07/07
 ### Android Studio
+**파이널 프로젝트 작업**
++ 프래그먼트 화면 간에 이동할때는 직접 이동할 수 없고, 주인 액티비티를 거쳐서 가야한다
++ HomeFragment fragmentHome; 선언 후 
++ onCreate 메소드 아래에 fragmentLogin = new LoginFragment(); 객체를 만든다
++ onFragmentChange메소드 아래에 `getSupportFragmentManager().beginTransaction().replace(R.id.container, 이동할Fragment).commit();`로 이동한다.
+  + onFragmentChange() : 지금 화면에 올라온 프래그먼트가 아니라 다른 프래그먼트를 띄우도록 하는 메소드
++ 메인엑티비티.xml에 FrameLayout을 추가해서 화면을 갈아낄 영역을 만들어준다(액자개념이라 생각, 갈아끼는 사진은 Fragment 화면들)  
+
+
 **Firebase Android Studio 연결**
 + build.gradle(app)에서 application ID 확인 `id 'com.android.application'`
 + 파이어베이스 프로젝트 생성 후 안드로이드 등록 클릭 후 ID값 등록
