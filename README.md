@@ -1,3 +1,38 @@
+# 21/07/07
+### Android Studio
+**파이널 프로젝트 작업**
++ 프래그먼트 화면 간에 이동할때는 직접 이동할 수 없고, 주인 액티비티를 거쳐서 가야한다
++ HomeFragment fragmentHome; 선언 후 
++ onCreate 메소드 아래에 fragmentLogin = new LoginFragment(); 객체를 만든다
++ onFragmentChange메소드 아래에 `getSupportFragmentManager().beginTransaction().replace(R.id.container, 이동할Fragment).commit();`로 이동한다.
+  + onFragmentChange() : 지금 화면에 올라온 프래그먼트가 아니라 다른 프래그먼트를 띄우도록 하는 메소드
++ 메인엑티비티.xml에 FrameLayout을 추가해서 화면을 갈아낄 영역을 만들어준다(액자개념이라 생각, 갈아끼는 사진은 Fragment 화면들)  
+
+
+**Firebase Android Studio 연결**
++ build.gradle(app)에서 application ID 확인 `id 'com.android.application'`
++ 파이어베이스 프로젝트 생성 후 안드로이드 등록 클릭 후 ID값 등록
++ Project로 변경 해서 app폴더에 google-services.json 넣어주기
++ build.gradle에 Firebase SDK 추가해주기
+
+#### 트러블 슈팅(Android Studio)
+![0707paprika_error](./img/0707paprika_error.png)
++ 문제 : 강좌목록 버튼 클릭시 CourseFragmant 화면이 나와야 하는데 멈춰버린다
++ 원인 : fragmentCourse 객체선언을 안해서 index값이 전달안되고 null object reference가 뜬 듯?
++ 해결 : MainActivity.java의 onCreate메소드 아래에 `fragmentCourse = new CourseFragment();`를 추가해서 해결
+
+
+# 21/07/06
+### Android Studio
+앱바레이아웃 소개
+리니어 레이아웃 안에 앱바레이아웃, 툴바, (탭레이아웃, 뷰페이저) 사용 예정
+페이지 구성 액티비티 1장 MainActivity
+HomeFragment, ListFragment 사용페이지 : (PizzaFragment, PastaFragment, StoreFragment)
+findViewById : xml에 있는걸 불러온다
+글자크기는 보통 sp를 사용한다
+### Ajax
+jsonObject{" "}
+
 # 21/07/05
 json형식, 자바에서 배운 리스트나 맵, 스크립트에서 스프링디파인, 파스, 파서함수 등을 써서 하나씩 꺼낼줄 알고 배열로 컨버전, 자료구조로 컨버전을 자유롭게
 ### Android Studio
