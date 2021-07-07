@@ -6,6 +6,11 @@
 + Project로 변경 해서 app폴더에 google-services.json 넣어주기
 + build.gradle에 Firebase SDK 추가해주기
 
+#### 트러블 슈팅(Android Studio)
+![0707paprika_error](./img/0707paprika_error.png)
++ 문제 : 강좌목록 버튼 클릭시 CourseFragmant 화면이 나와야 하는데 멈춰버린다
++ 원인 : fragmentCourse 객체선언을 안해서 index값이 전달안되고 null object reference가 뜬 듯?
++ 해결 : MainActivity.java의 onCreate메소드 아래에 `fragmentCourse = new CourseFragment();`를 추가해서 해결
 
 
 # 21/07/06
