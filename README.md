@@ -1,3 +1,13 @@
+# 21/07/07
+### Android Studio
+**Firebase Android Studio 연결**
++ build.gradle(app)에서 application ID 확인 `id 'com.android.application'`
++ 파이어베이스 프로젝트 생성 후 안드로이드 등록 클릭 후 ID값 등록
++ Project로 변경 해서 app폴더에 google-services.json 넣어주기
++ build.gradle에 Firebase SDK 추가해주기
+
+
+
 # 21/07/06
 ### Android Studio
 앱바레이아웃 소개
@@ -8,10 +18,6 @@ findViewById : xml에 있는걸 불러온다
 글자크기는 보통 sp를 사용한다
 ### Ajax
 jsonObject{" "}
-
-
-
-
 
 # 21/07/05
 json형식, 자바에서 배운 리스트나 맵, 스크립트에서 스프링디파인, 파스, 파서함수 등을 써서 하나씩 꺼낼줄 알고 배열로 컨버전, 자료구조로 컨버전을 자유롭게
