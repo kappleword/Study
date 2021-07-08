@@ -1,50 +1,49 @@
 # 21/07/08
+#### 파이널 프로젝트 작업
+!!!!!!!!!!!정리필요!!!!!!!!!!  
+AndroidMainifest.xml에 `<uses-permission android:name="android.permission.INTERNET"/>`빼먹어서 인터넷 연결 안 됨
+인터넷 창이 새창으로 나와서 `mWebView.setWebViewClient(new WebViewClient());` 추가해서 프래그먼트 밖으로 못나가게함
+근데 인터넷이 또 안되서 추가해줌 `android:usesCleartextTraffic="true"`  
+!!!!!!!!!!!정리필요!!!!!!!!!!  
+
 ### Android Studio
-직렬화    id 'kotlin-parcelize'
-룸컴파일러의존성주입때문에     id 'kotlin-kapt'
-```
++ 직렬화추가 : build.gradle(app)-plugins에 `id 'kotlin-parcelize'` 추가
++ 룸 컴파일러 의존성 주입 : build.gradle(app)-plugins에 `id 'kotlin-kapt'` 추가
+```kotlin
 //NullSaft 한 코드를  사용하기 위해서 non-null Type으로 변수를 선언한다
 //초기값이 없는 변수는 어떻게 초기화를 해야할까?
 //초기값이 없으면 변수 선언 자체가 안되는데
-//배리어블
-var nullabeNumber: Int? = null
+var //배리어블
+nullabeNumber: Int? = null
+val //밸류 : 상수
 
 lateinit var lateinitNumber: Int
 //추후에 초기화하는 코드가 반드시 와야한다
 lateinitNumber = 10 //초기화
-
 //사용할 때
 nullabeNumber?.add()
 lateinitNumber.add()
-
+//자바의 경우
 Integer a = 100;//(java)
-a = null//wrapper class (java)
+a = null;//wrapper class (java)
 a.sum();//NullPointerException 맞아버림 (java)
 //null safe한 코드를 작성하는 것 개발자 책임이니까 (java)
-if(a != null) a.sum();//(java)
-
+if(a != null) a.sum();//이런식으로 null을 피한다(java)
+//하지만 코틀린은?
 val b: Int? = 100 // null일지도? (Kotlin)
 val c: Int = 100 // null safe한 코드를 구성해야 한다(Kotlin)
 b?.sum()//null이면 아예 실행을 안한다(Kotlin)
 
-//밸류 : 상수
-val
+
 ```
-extends가 없음, :변수? nullabel, 이벤트처리를 람다식으로 한다
-5교시 2:59내용
++ ↳ Kotlin vs Java
++ Kotlin 특징
+  + extends가 없음, :변수? nullabel, 이벤트처리를 람다식으로 한다
+  + 5교시 2:59내용
 
 
 # 21/07/07
 ### Android Studio
-**파이널 프로젝트 작업**
-+ 프래그먼트 화면 간에 이동할때는 직접 이동할 수 없고, 주인 액티비티를 거쳐서 가야한다
-+ HomeFragment fragmentHome; 선언 후 
-+ onCreate 메소드 아래에 fragmentLogin = new LoginFragment(); 객체를 만든다
-+ onFragmentChange메소드 아래에 `getSupportFragmentManager().beginTransaction().replace(R.id.container, 이동할Fragment).commit();`로 이동한다.
-  + onFragmentChange() : 지금 화면에 올라온 프래그먼트가 아니라 다른 프래그먼트를 띄우도록 하는 메소드
-+ 메인엑티비티.xml에 FrameLayout을 추가해서 화면을 갈아낄 영역을 만들어준다(액자개념이라 생각, 갈아끼는 사진은 Fragment 화면들)  
-
-
 **Firebase Android Studio 연결**
 + build.gradle(app)에서 application ID 확인 `id 'com.android.application'`
 + 파이어베이스 프로젝트 생성 후 안드로이드 등록 클릭 후 ID값 등록
@@ -56,8 +55,28 @@ extends가 없음, :변수? nullabel, 이벤트처리를 람다식으로 한다
 + 문제 : 강좌목록 버튼 클릭시 CourseFragmant 화면이 나와야 하는데 멈춰버린다
 + 원인 : fragmentCourse 객체선언을 안해서 index값이 전달안되고 null object reference가 뜬 듯?
 + 해결 : MainActivity.java의 onCreate메소드 아래에 `fragmentCourse = new CourseFragment();`를 추가해서 해결
-
-
+#### 파이널 프로젝트 작업
++ 프래그먼트 화면 간에 이동할때는 직접 이동할 수 없고, 주인 액티비티를 거쳐서 가야한다
+  + HomeFragment fragmentHome; 선언 후 
+  + onCreate 메소드 아래에 fragmentLogin = new LoginFragment(); 객체를 만든다
+  + onFragmentChange메소드 아래에 `getSupportFragmentManager().beginTransaction().replace(R.id.container, 이동할Fragment).commit();`로 이동한다.
+    + onFragmentChange() : 지금 화면에 올라온 프래그먼트가 아니라 다른 프래그먼트를 띄우도록 하는 메소드
++ 메인엑티비티.xml에 FrameLayout을 추가해서 화면을 갈아낄 영역을 만들어준다
+  + 액티비티의 FrameLayout을 액자개념이라 생각, 갈아끼는 사진은 Fragment 화면들 
++ 앱 시작 후 처음보여지는 화면을 특정 프래그먼트로 지정하기
++ ↓↓↓ 메인엑티비티.xml의 FrameLayout에 원하는 화면의 fragment를 넣어주면 된다
+```xml
+<FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
+    <fragment
+        android:name="com.example.paprika.원하는Fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</FrameLayout>
+```
 # 21/07/06
 ### Android Studio
 앱바레이아웃 소개
