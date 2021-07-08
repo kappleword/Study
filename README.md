@@ -1,3 +1,39 @@
+# 21/07/08
+### Android Studio
+직렬화    id 'kotlin-parcelize'
+룸컴파일러의존성주입때문에     id 'kotlin-kapt'
+```
+//NullSaft 한 코드를  사용하기 위해서 non-null Type으로 변수를 선언한다
+//초기값이 없는 변수는 어떻게 초기화를 해야할까?
+//초기값이 없으면 변수 선언 자체가 안되는데
+//배리어블
+var nullabeNumber: Int? = null
+
+lateinit var lateinitNumber: Int
+//추후에 초기화하는 코드가 반드시 와야한다
+lateinitNumber = 10 //초기화
+
+//사용할 때
+nullabeNumber?.add()
+lateinitNumber.add()
+
+Integer a = 100;//(java)
+a = null//wrapper class (java)
+a.sum();//NullPointerException 맞아버림 (java)
+//null safe한 코드를 작성하는 것 개발자 책임이니까 (java)
+if(a != null) a.sum();//(java)
+
+val b: Int? = 100 // null일지도? (Kotlin)
+val c: Int = 100 // null safe한 코드를 구성해야 한다(Kotlin)
+b?.sum()//null이면 아예 실행을 안한다(Kotlin)
+
+//밸류 : 상수
+val
+```
+extends가 없음, :변수? nullabel, 이벤트처리를 람다식으로 한다
+5교시 2:59내용
+
+
 # 21/07/07
 ### Android Studio
 **파이널 프로젝트 작업**
