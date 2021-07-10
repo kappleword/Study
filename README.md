@@ -1,10 +1,11 @@
 # 21/07/08
 #### 파이널 프로젝트 작업
-!!!!!!!!!!!정리필요!!!!!!!!!!  
-AndroidMainifest.xml에 `<uses-permission android:name="android.permission.INTERNET"/>`빼먹어서 인터넷 연결 안 됨
-인터넷 창이 새창으로 나와서 `mWebView.setWebViewClient(new WebViewClient());` 추가해서 프래그먼트 밖으로 못나가게함
-근데 인터넷이 또 안되서 추가해줌 `android:usesCleartextTraffic="true"`  
-!!!!!!!!!!!정리필요!!!!!!!!!!  
++ WebView를 이용해서 프래그먼트화면에 인터넷 창과 연결했다
++ AndroidMainifest.xml에 `<uses-permission android:name="android.permission.INTERNET"/>`빼먹어서 인터넷 연결 안 됨
+![paprika_internet1](./img/paprika_internet1.png)
++ 웹 화면이 앱 안에서 뜨는게 아니고 새창으로 나와서 `mWebView.setWebViewClient(new WebViewClient());` 추가해서 프래그먼트 밖으로 못나가게함
+![paprika_internet2](./img/paprika_internet2.png)
++ 근데 인터넷 연결이 또 안되서 AndroidMainifest.xml에 `android:usesCleartextTraffic="true"` 추가해주니 정상적으로 작동한다
 
 ### Android Studio
 + 직렬화추가 : build.gradle(app)-plugins에 `id 'kotlin-parcelize'` 추가
