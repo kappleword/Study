@@ -1,3 +1,18 @@
+# 21/07/13
+### Android Studio (Kotlin)
+Numberpicker : 숫자 선택 
+```kotlin
+private val numberPicker: NumberPicker by lazy {
+        findViewById(R.id.numberPicker)
+}
+override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        numberPicker.minValue = 1
+        numberPicker.maxValue = 45
+}    
+```
+min : 최소값, max 최대값 설정
 # 21/07/11
 #### 파이널 프로젝트 작업
 웹사이트를 앱화면에서 띄울때 버튼, 화면 등등 깨지는걸 해결하기 위해서 웹뷰 설정도 바꿔보고 비율맞추는 함수 등을 써봤지만 결과가 다 시원찮다.
