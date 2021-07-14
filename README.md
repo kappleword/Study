@@ -1,3 +1,12 @@
+# 21/07/14
+### Android Studio
+**Deprecated**
++ 컴파일시 note: recompile with -xlint:deprecation for details. 오류메시지가 떴는데 기능은 정상 작동했다
++ 왜 뜨냐면 자바버전이 업그레이드되면서 불필요하거나 보안 등의 문제로 없어진 기능이기 때문
++ Analyze - Run Inspection by Name - Deprecated API usage를 검색하면 Deprecated된 함수들을 찾아준다
+문제 함수들을 API등등을 참고해서 변경해주면 해결
++ 파프리카 프로젝트는 문제 부분을 setOnNavigationItemSelectedListener > setOnItemSelectedListener로 대체해서 해결
+
 # 21/07/13
 #### 파이널 프로젝트 작업
 강의목록 페이지 navbar 전부 제거해서 정상적으로 출력 확인
@@ -28,9 +37,30 @@ min : 최소값, max 최대값 설정
 + WebView를 이용해서 프래그먼트화면에 인터넷 창과 연결했다
 + AndroidMainifest.xml에 `<uses-permission android:name="android.permission.INTERNET"/>`빼먹어서 인터넷 연결 안 됨
 ![paprika_internet1](./img/paprika_internet1.png)
-+ 웹 화면이 앱 안에서 뜨는게 아니고 새창으로 나와서 `mWebView.setWebViewClient(new WebViewClient());` 추가해서 프래그먼트 밖으로 못나가게함
++ WebView를 사용하여 url에 접속 시 인터넷 창이 앱 내부에서 실행되지 않고 새 창으로 일어났다.
++ + 기본 WebView 설정은 새로운 Url 접속시 시스템에서 새로운 창에다가 로딩하도록 시키기 때문
++ 앱 내부에서 실행되게 하려면 WebViewClient를 통해 웹뷰에서 일어나는 요청, 상태, 에러 등 다양한 상황에서의 콜백을 조작해야한다
++ 따라서 WebViewClient를 WebView 내부에서 생성해서 해결할 수 있었다
+```java
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_naver, container, false);
+        WebView mWebView = view.findViewById(R.id.naver_web);
+        // Enable Javascript
+        WebSettings webSettings = mWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+
+        // Force links and redirects to open in the WebView instead of in a browser
+        mWebView.setWebViewClient(new WebViewClient());
+        mWebView.loadUrl("https://www.naver.com/");
+        return view;
+    }
+```
 ![paprika_internet2](./img/paprika_internet2.png)
-+ 근데 인터넷 연결이 또 안되서 AndroidMainifest.xml에 `android:usesCleartextTraffic="true"` 추가해주니 정상적으로 작동한다
++ 경로가 http로 바껴서 접속되서 에러가 떴다 (permission.INTERNET은 추가한 상태)
++ `AndroidMainifest.xml에 android:usesCleartextTraffic="true"` 를 추가해서 모든 http URL의 접근을 허가해주면 정상적으로 작동한다
 
 ### Android Studio
 + 직렬화추가 : build.gradle(app)-plugins에 `id 'kotlin-parcelize'` 추가
